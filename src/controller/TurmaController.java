@@ -45,4 +45,52 @@ public class TurmaController {
     }
 
     // Implementar outros métodos...
+    public void atualizarTurmaAdminGeral() {
+        // 1) Lê o ID da turma e busca no banco
+        int turmaId = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
+        Turma turma = turmaDAO.buscarPorId(turmaId);
+
+        if (turma == null) {
+            System.out.println("Turma não encontrada!");
+            return;
+        }
+
+        // 2) Lê os novos valores
+        String novoNome = ConsoleUtil.lerString("Novo Nome da Turma [" + turma.getNome() + "]: ");
+        int novoCursoId = ConsoleUtil.lerInt("Novo ID do Curso [" + turma.getCurso().getId() + "]: ", 1, Integer.MAX_VALUE);
+        int novaEscolaId = ConsoleUtil.lerInt("Novo ID da Escola [" + turma.getEscola().getId() + "]: ", 1, Integer.MAX_VALUE);
+
+        // 3) Busca as entidades relacionadas
+        Curso novoCurso = cursoDAO.buscarPorId(novoCursoId);
+        Escola novaEscola = escolaDAO.buscarPorId(novaEscolaId);
+
+        if (novoCurso == null || novaEscola == null) {
+            System.out.println("Curso ou Escola não encontrada!");
+            return;
+        }
+
+        // 4) Atualiza os campos da turma somente se o usuário digitou algo (pode querer manter o existente)
+        if (!novoNome.trim().isEmpty()) {
+            turma.setNome(novoNome);
+        }
+        turma.setCurso(novoCurso);
+        turma.setEscola(novaEscola);
+
+        // 5) Persiste e notifica
+        turmaDAO.atualizar(turma);
+        System.out.println("Turma atualizada com sucesso!");
+    }
+
+    public void listarTurmaAdminGeral() {
+        Turma[] turma = turmaDAO.listarTodos();
+        for (Turma p : turma) {
+            System.out.println("ID da Turma: " + p.getId() + " | Nome da Turma: " + p.getNome() + " | Nome do Curso: " + p.getCurso().getSigla() + " (" + p.getCurso().getNome() + ")");
+        }
+    }
+
+    public void deletarTurmaAdminGeral() {
+        int id = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
+        turmaDAO.deletar(id);
+        System.out.println("Turma deletada!");
+    }
 }

@@ -27,13 +27,13 @@ public class TurmaView {
                     turmaController.criarTurmaAdminGeral();
                     break;
                 case 2:
-                    //turmaController.atualizarTurmaAdminGeral();
+                    turmaController.atualizarTurmaAdminGeral();
                     break;
                 case 3:
-                    //turmaController.listarTodasTurmas();
+                    turmaController.listarTurmaAdminGeral();
                     break;
                 case 4:
-                    //turmaController.deletarTurmaAdminGeral();
+                    turmaController.deletarTurmaAdminGeral();
                     break;
             }
         } while (opcao != 5);
