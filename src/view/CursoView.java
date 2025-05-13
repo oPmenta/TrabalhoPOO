@@ -27,13 +27,13 @@ public class CursoView {
                     cursoController.criarCurso();
                     break;
                 case 2:
-                    // cursoController.atualizarCurso();
+                    cursoController.atualizarCurso();
                     break;
                 case 3:
-                    // cursoController.listarCursos();
+                    cursoController.listarCurso();
                     break;
                 case 4:
-                    // cursoController.deletarCurso();
+                    cursoController.deletarCurso();
                     break;
             }
         } while (opcao != 5);
