@@ -80,7 +80,7 @@ public class TurmaDAO {
     }
 
     public Turma buscarPorIdEEscola(int turmaId, int escolaId) {
-        for (Turma turma : turmas) { // Supondo que 'turmas' é o array de Turma
+        for (Turma turma : turmas) { 
             if (turma != null && turma.getId() == turmaId
                     && turma.getEscola().getId() == escolaId) {
                 return turma;

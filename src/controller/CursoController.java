@@ -48,7 +48,7 @@ public class CursoController {
             cursoDAO.atualizar(curso);
             System.out.println("Curso atualizado!");
         } else {
-            System.out.println("Curso não encontrado!");
+            System.out.println("Curso nao encontrado!");
         }
     }
 
@@ -66,7 +66,7 @@ public class CursoController {
             cursoDAO.deletar(id);
             System.out.println("Curso deletado!");
         } else {
-            System.out.println("Curso não encontrado!");
+            System.out.println("Curso nao encontrado!");
         }
     }
 }

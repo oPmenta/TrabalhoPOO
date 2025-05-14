@@ -6,7 +6,7 @@ import controller.*;
 import view.*;
 import java.util.Scanner;
 
-public class Main {
+public class main {
 
     private static Usuario usuarioLogado;
     private static Scanner scanner = new Scanner(System.in);
@@ -81,7 +81,7 @@ public class Main {
     }
 
     private static void exibirTelaBoasVindas() {
-        System.out.println("\n=== BEM-VINDO AO SISTEMA ACADÊMICO ===");
+        System.out.println("\n=== BEM-VINDO AO SISTEMA ACADEMICO ===");
     }
 
     private static void fazerLogin(UsuarioController usuarioController) {

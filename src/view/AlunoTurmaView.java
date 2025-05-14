@@ -27,6 +27,9 @@ public class AlunoTurmaView {
                 case 2:
                     alunoTurmaController.moverAlunoTurma(escolaId);
                     break;
+                case 3:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 3);
     }

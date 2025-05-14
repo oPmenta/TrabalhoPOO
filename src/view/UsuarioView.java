@@ -35,6 +35,9 @@ public class UsuarioView {
                 case 4:
                     usuarioController.deletarUsuario();
                     break;
+                case 5:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 5);
     }

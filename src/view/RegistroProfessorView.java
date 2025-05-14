@@ -27,6 +27,9 @@ public class RegistroProfessorView {
                 case 2:
                     //registroController.listarRegistros();
                     break;
+                case 3:
+                    System.out.println("Voltar...");
+                    break;
             }
         } while (opcao != 3);
     }

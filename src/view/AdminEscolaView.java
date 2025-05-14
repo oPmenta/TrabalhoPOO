@@ -50,6 +50,9 @@ public class AdminEscolaView {
                 case 5:
                     new AlunoTurmaView(alunoTurmaController).exibirMenu(escolaId);
                     break;
+                case 6:
+                    System.out.println("Saindo...");
+                    break;
             }
         } while (opcao != 6);
     }

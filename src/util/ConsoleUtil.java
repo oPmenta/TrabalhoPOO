@@ -18,7 +18,7 @@ public class ConsoleUtil {
                     System.out.printf("Erro: escolha entre %d e %d!\n", min, max);
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Erro: entrada inválida!");
+                System.out.println("Erro: entrada invalida!");
             }
         }
     }

@@ -41,6 +41,9 @@ public class UsuarioEscolaView {
                 case 3:
                     usuarioController.deletarUsuarioEscola(escolaId);
                     break;
+                case 4:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 4);
     }

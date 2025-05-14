@@ -35,6 +35,9 @@ public class TurmaView {
                 case 4:
                     turmaController.deletarTurmaAdminGeral();
                     break;
+                case 5:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 5);
     }
@@ -66,6 +69,9 @@ public class TurmaView {
                     break;
                 case 5:
                     turmaController.deletarTurmaEscola(escolaId);
+                    break;
+                case 6:
+                    System.out.println("Voltando...");
                     break;
             }
         } while (opcao != 6);

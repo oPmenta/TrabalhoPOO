@@ -23,14 +23,21 @@ public class EscolaView {
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
 
             switch (opcao) {
-                case 1 ->
+                case 1:
                     escolaController.criarEscola();
-                case 2 ->
+                    break;
+                case 2:
                     escolaController.atualizarEscola();
-                case 3 ->
+                    break;
+                case 3:
                     escolaController.listarEscolas();
-                case 4 ->
+                    break;
+                case 4:
                     escolaController.deletarEscola();
+                    break;
+                case 5:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 5);
     }

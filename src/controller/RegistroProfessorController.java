@@ -27,7 +27,7 @@ public class RegistroProfessorController {
             registroDAO.criar(registro);
             System.out.println("Registro criado com ID: " + registro.getId());
         } else {
-            System.out.println("Professor não encontrado ou tipo inválido!");
+            System.out.println("Professor nao encontrado ou tipo inválido!");
         }
     }
 

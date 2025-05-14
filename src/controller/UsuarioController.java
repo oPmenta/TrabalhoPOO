@@ -33,13 +33,13 @@ public class UsuarioController {
             usuarioDAO.criar(usuario);
             System.out.println("Usuário criado com ID: " + usuario.getId());
         } else {
-            System.out.println("Pessoa ou Escola não encontrada!");
+            System.out.println("Pessoa ou Escola nao encontrada!");
         }
     }
 
     public void criarUsuario(Usuario u) {
         usuarioDAO.criar(u);
-        System.out.println("Usuário padrão criado com ID: " + u.getId());
+        System.out.println("Usuario padrao criado com ID: " + u.getId());
     }
 
     public Usuario autenticar(String login, String senha) {
@@ -66,12 +66,12 @@ public class UsuarioController {
                 usuario.setEscola(novaEscola);
                 usuario.setTipo(ConsoleUtil.lerString("Novo Tipo(ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR): ").toUpperCase());
                 usuarioDAO.atualizar(usuario);
-                System.out.println("Usuário atualizado!");
+                System.out.println("Usuario atualizado!");
             } else {
-                System.out.println("Pessoa ou Escola não encontrada!");
+                System.out.println("Pessoa ou Escola nao encontrada!");
             }
         } else {
-            System.out.println("Usuário não encontrado!");
+            System.out.println("Usuário nao encontrado!");
         }
     }
 
@@ -97,7 +97,7 @@ public class UsuarioController {
         Escola escola = escolaDAO.buscarPorId(escolaId);
 
         if (pessoa == null || escola == null) {
-            System.out.println("Pessoa ou Escola não encontrada!");
+            System.out.println("Pessoa ou Escola nao encontrada!");
             return;
         }
 
@@ -153,7 +153,7 @@ public class UsuarioController {
             usuarioDAO.deletar(id);
             System.out.println("Vínculo removido com sucesso!");
         } else {
-            System.out.println("Usuário não encontrado ou não vinculado a esta escola!");
+            System.out.println("Usuário nao encontrado ou nao vinculado a esta escola!");
         }
     }
 

@@ -23,7 +23,7 @@ public class PessoaController {
 
     public void criarPessoa(Pessoa p) {
         pessoaDAO.criar(p);
-        System.out.println("Pessoa padrão criada com ID: " + p.getId());
+        System.out.println("Pessoa padrao criada com ID: " + p.getId());
     }
 
     public void atualizarPessoa() {
@@ -36,7 +36,7 @@ public class PessoaController {
             pessoaDAO.atualizar(pessoa);
             System.out.println("Pessoa atualizada!");
         } else {
-            System.out.println("Pessoa não encontrada!");
+            System.out.println("Pessoa nao encontrada!");
         }
     }
 

@@ -36,7 +36,7 @@ public class EscolaController {
             escolaDAO.atualizar(escola);
             System.out.println("Escola atualizada!");
         } else {
-            System.out.println("Escola não encontrada!");
+            System.out.println("Escola nao encontrada!");
         }
     }
 

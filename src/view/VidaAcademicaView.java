@@ -27,6 +27,9 @@ public class VidaAcademicaView {
                 case 2:
                     //vidaAcademicaController.listarRegistros();
                     break;
+                case 3:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 3);
     }

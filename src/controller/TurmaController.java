@@ -55,7 +55,7 @@ public class TurmaController {
         Turma turma = turmaDAO.buscarPorId(turmaId);
 
         if (turma == null) {
-            System.out.println("Turma não encontrada!");
+            System.out.println("Turma nao encontrada!");
             return;
         }
 
@@ -67,7 +67,7 @@ public class TurmaController {
         Escola novaEscola = escolaDAO.buscarPorId(novaEscolaId);
 
         if (novoCurso == null || novaEscola == null) {
-            System.out.println("Curso ou Escola não encontrada!");
+            System.out.println("Curso ou Escola nao encontrada!");
             return;
         }
 
@@ -129,7 +129,7 @@ public class TurmaController {
         Turma turma = turmaDAO.buscarPorId(idTurma);
 
         if (turma == null || turma.getEscola().getId() != escolaId) {
-            System.out.println("Erro: Turma não encontrada ou não pertence à sua escola!");
+            System.out.println("Erro: Turma nao encontrada ou nao pertence a sua escola!");
             return;
         }
 
@@ -162,7 +162,7 @@ public class TurmaController {
         Turma turma = turmaDAO.buscarPorId(idTurma);
 
         if (turma == null || turma.getEscola().getId() != escolaId) {
-            System.out.println("Turma não encontrada ou não pertence à sua escola!");
+            System.out.println("Turma nao encontrada ou nao pertence a sua escola!");
             return;
         }
 

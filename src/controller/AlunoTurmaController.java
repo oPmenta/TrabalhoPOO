@@ -25,7 +25,7 @@ public class AlunoTurmaController {
         Aluno aluno = alunoDAO.buscarPorId(alunoId);
 
         if (aluno == null) {
-            System.out.println("Erro: Aluno não encontrado!");
+            System.out.println("Erro: Aluno nao encontrado!");
             return;
         }
 
@@ -33,18 +33,18 @@ public class AlunoTurmaController {
         Turma turma = turmaDAO.buscarPorIdEEscola(turmaId, escolaId);
 
         if (turma == null) {
-            System.out.println("Erro: Turma não encontrada ou não pertence à escola!");
+            System.out.println("Erro: Turma nao encontrada ou nao pertence a escola!");
             return;
         }
 
         if (alunoTurmaDAO.buscarPorAlunoETurma(alunoId, turmaId) != null) {
-            System.out.println("Erro: Aluno já está vinculado a esta turma!");
+            System.out.println("Erro: Aluno ja está vinculado a esta turma!");
             return;
         }
 
         AlunoTurma relacao = new AlunoTurma(0, aluno, turma);
         alunoTurmaDAO.criar(relacao);
-        System.out.println("Aluno vinculado à turma com sucesso!");
+        System.out.println("Aluno vinculado a turma com sucesso!");
     }
 
     // Implementar outros métodos...
@@ -58,7 +58,7 @@ public class AlunoTurmaController {
         Turma turmaDestino = turmaDAO.buscarPorIdEEscola(turmaDestinoId, escolaId);
 
         if (turmaOrigem == null || turmaDestino == null) {
-            System.out.println("Erro: Uma ou ambas as turmas são inválidas ou não pertencem à escola!");
+            System.out.println("Erro: Uma ou ambas as turmas são invalidas ou nao pertencem à escola!");
             return;
         }
 

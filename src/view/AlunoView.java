@@ -35,6 +35,9 @@ public class AlunoView {
                 case 4:
                     alunoController.deletarAluno();
                     break;
+                case 5:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 5);
     }

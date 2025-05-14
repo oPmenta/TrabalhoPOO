@@ -23,14 +23,21 @@ public class PessoaView {
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
 
             switch (opcao) {
-                case 1 ->
+                case 1:
                     pessoaController.criarPessoa();
-                case 2 ->
+                    break;
+                case 2:
                     pessoaController.atualizarPessoa();
-                case 3 ->
+                    break;
+                case 3:
                     pessoaController.listarPessoas();
-                case 4 ->
+                    break;
+                case 4:
                     pessoaController.deletarPessoa();
+                    break;
+                case 5:
+                    System.out.println("Voltando...");
+                    break;
             }
         } while (opcao != 5);
     }
