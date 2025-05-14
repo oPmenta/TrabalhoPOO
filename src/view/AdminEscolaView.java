@@ -9,13 +9,17 @@ public class AdminEscolaView {
     private TurmaController turmaController;
     private UsuarioController usuarioController;
     private EscolaController escolaController;
+    private CursoController cursoController;
+    private AlunoTurmaController alunoTurmaController;
 
     public AdminEscolaView(AlunoController alunoController, TurmaController turmaController,
-            UsuarioController usuarioController, EscolaController escolaController) {
+            UsuarioController usuarioController, EscolaController escolaController, CursoController cursoController, AlunoTurmaController alunoTurmaController) {
         this.alunoController = alunoController;
         this.turmaController = turmaController;
         this.usuarioController = usuarioController;
         this.escolaController = escolaController;
+        this.cursoController = cursoController;
+        this.alunoTurmaController = alunoTurmaController;
     }
 
     public void exibirMenu(int escolaId) {
@@ -24,10 +28,11 @@ public class AdminEscolaView {
             System.out.println("\n=== MENU ADMIN ESCOLA ===");
             System.out.println("1 - Menu de Aluno");
             System.out.println("2 - Menu de Usuários da Escola");
-            System.out.println("3 - Menu de Turma");
-            System.out.println("4 - Vincular Alunos às Turmas");
-            System.out.println("5 - Logout");
-            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
+            System.out.println("3 - Menu de Curso");
+            System.out.println("4 - Menu de Turma");
+            System.out.println("5 - Vincular Alunos às Turmas");
+            System.out.println("6 - Logout");
+            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 6);
 
             switch (opcao) {
                 case 1:
@@ -37,15 +42,15 @@ public class AdminEscolaView {
                     new UsuarioEscolaView(usuarioController, escolaController).exibirMenu(escolaId);
                     break;
                 case 3:
-                    new TurmaView(turmaController).exibirMenuEscola(escolaId);
+                    new CursoView(cursoController).exibirMenu();
                     break;
                 case 4:
-                    //turmaController.vincularAlunoTurma();
+                    new TurmaView(turmaController).exibirMenuAdminEscola(escolaId); // menu da turma
                     break;
                 case 5:
-                    System.out.println("Saindo...");
+                    new AlunoTurmaView(alunoTurmaController).exibirMenu(escolaId);
                     break;
             }
-        } while (opcao != 5);
+        } while (opcao != 6);
     }
 }

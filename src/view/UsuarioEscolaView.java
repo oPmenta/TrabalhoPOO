@@ -33,10 +33,13 @@ public class UsuarioEscolaView {
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
             switch (opcao) {
                 case 1:
+                    usuarioController.vincularUsuarioEscola(escolaId);
                     break;
                 case 2:
+                    usuarioController.listarUsuariosDaEscola(escolaId);
                     break;
                 case 3:
+                    usuarioController.deletarUsuarioEscola(escolaId);
                     break;
             }
         } while (opcao != 4);

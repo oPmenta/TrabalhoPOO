@@ -2,6 +2,7 @@ package model.DAO;
 
 import model.AlunoTurma;
 import model.DAO.*;
+import model.Turma;
 
 public class AlunoTurmaDAO {
 
@@ -67,5 +68,24 @@ public class AlunoTurmaDAO {
             novoArray[i] = vinculos[i];
         }
         vinculos = novoArray;
+    }
+
+    public AlunoTurma buscarPorAlunoETurma(int alunoId, int turmaId) {
+        for (int i = 0; i < ultimoId; i++) {
+            AlunoTurma vinculo = vinculos[i];
+            if (vinculo.getAluno().getId() == alunoId
+                    && vinculo.getTurma().getId() == turmaId) {
+                return vinculo;
+            }
+        }
+        return null;
+    }
+
+    public void atualizarTurmaAlunos(int turmaOrigemId, Turma turmaDestino) {
+        for (int i = 0; i < ultimoId; i++) {
+            if (vinculos[i].getTurma().getId() == turmaOrigemId) {
+                vinculos[i].setTurma(turmaDestino);
+            }
+        }
     }
 }

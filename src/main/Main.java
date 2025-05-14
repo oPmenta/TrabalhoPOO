@@ -25,7 +25,7 @@ public class Main {
         PessoaController pessoaController = new PessoaController(pessoaDAO);
         EscolaController escolaController = new EscolaController(escolaDAO);
         CursoController cursoController = new CursoController(cursoDAO);
-        TurmaController turmaController = new TurmaController(turmaDAO, escolaDAO, cursoDAO);
+        TurmaController turmaController = new TurmaController(turmaDAO, escolaDAO, cursoDAO, alunoTurmaDAO);
         UsuarioController usuarioController = new UsuarioController(pessoaDAO, escolaDAO, usuarioDAO);
         AlunoController alunoController = new AlunoController(alunoDAO);
         AlunoTurmaController alunoTurmaController = new AlunoTurmaController(alunoTurmaDAO, alunoDAO, turmaDAO);
@@ -53,19 +53,30 @@ public class Main {
     }
 
     private static void criarAdminSeNecessario(PessoaController pessoaController, EscolaController escolaController, UsuarioController usuarioController) {
-        Pessoa admin = pessoaController.buscarPorLogin("admin");
-        if (admin == null) {
-            // Cria Pessoa admin
-            admin = new Pessoa(1, "Admin", "admin", "admin123");
-            pessoaController.criarPessoa(admin);
+        // Verifica se já existem os admins
+        Pessoa adminGeral = pessoaController.buscarPorLogin("admin");
+        Pessoa adminEscola = pessoaController.buscarPorLogin("adminE");
+
+        if (adminGeral == null && adminEscola == null) {
+            // Cria Pessoa admin_geral
+            Pessoa admin1 = new Pessoa(1, "Admin", "admin", "admin123");
+            pessoaController.criarPessoa(admin1);
+
+            // Cria Pessoa admin_escola
+            Pessoa admin2 = new Pessoa(2, "AdminE", "adminE", "admin123");
+            pessoaController.criarPessoa(admin2);
 
             // Cria Escola padrão
             Escola escolaPadrao = new Escola(1, "IFTM", "Uberaba", "(34)3326-1100");
             escolaController.criarEscola(escolaPadrao);
 
-            // Cria Usuário admin
-            Usuario adminUsuario = new Usuario(1, admin, escolaPadrao, "ADMIN_GERAL");
+            // Cria Usuário admin_geral
+            Usuario adminUsuario = new Usuario(1, admin1, escolaPadrao, "ADMIN_GERAL");
             usuarioController.criarUsuario(adminUsuario);
+
+            // Cria Usuário admin_escola
+            Usuario adminEUsuario = new Usuario(2, admin2, escolaPadrao, "ADMIN_ESCOLA");
+            usuarioController.criarUsuario(adminEUsuario);
         }
     }
 
@@ -112,7 +123,9 @@ public class Main {
                     alunoController,
                     turmaController,
                     usuarioController,
-                    escolaController
+                    escolaController,
+                    cursoController,
+                    alunoTurmaController
             );
             adminEscolaView.exibirMenu(usuarioLogado.getEscola().getId());
             usuarioLogado = null; // Logout após sair do menu

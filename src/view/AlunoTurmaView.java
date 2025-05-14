@@ -11,7 +11,7 @@ public class AlunoTurmaView {
         this.alunoTurmaController = alunoTurmaController;
     }
 
-    public void exibirMenu() {
+    public void exibirMenu(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU VINCULAR ALUNOS ===");
@@ -22,9 +22,10 @@ public class AlunoTurmaView {
 
             switch (opcao) {
                 case 1:
-                    alunoTurmaController.vincularAlunoTurma();
+                    alunoTurmaController.vincularAlunoTurma(escolaId);
+                    break;
                 case 2:
-                    //alunoTurmaController.moverAlunoTurma();
+                    alunoTurmaController.moverAlunoTurma(escolaId);
                     break;
             }
         } while (opcao != 3);

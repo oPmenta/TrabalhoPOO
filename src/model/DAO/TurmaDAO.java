@@ -78,4 +78,14 @@ public class TurmaDAO {
         }
         turmas = novoArray;
     }
+
+    public Turma buscarPorIdEEscola(int turmaId, int escolaId) {
+        for (Turma turma : turmas) { // Supondo que 'turmas' é o array de Turma
+            if (turma != null && turma.getId() == turmaId
+                    && turma.getEscola().getId() == escolaId) {
+                return turma;
+            }
+        }
+        return null;
+    }
 }

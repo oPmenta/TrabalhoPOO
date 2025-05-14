@@ -27,8 +27,8 @@ public class AlunoController {
         Aluno aluno = alunoDAO.buscarPorId(id);
         if (aluno != null) {
             aluno.setNome(ConsoleUtil.lerString("Novo Nome: "));
-            aluno.setLogin(ConsoleUtil.lerString("Novo CPF: "));
-            aluno.setSenha(ConsoleUtil.lerString("Nova Email: "));
+            aluno.setCpf(ConsoleUtil.lerString("Novo CPF: "));
+            aluno.setEmail(ConsoleUtil.lerString("Nova Email: "));
             alunoDAO.atualizar(aluno);
             System.out.println("Aluno atualizado!");
         } else {

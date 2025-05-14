@@ -87,4 +87,83 @@ public class UsuarioController {
         usuarioDAO.deletar(id);
         System.out.println("Usuario deletado!");
     }
+
+    public void vincularUsuarioEscola(int escolaId) {
+        // Solicitar ID da Pessoa
+        int pessoaId = ConsoleUtil.lerInt("ID da Pessoa: ", 1, Integer.MAX_VALUE);
+
+        // Buscar Pessoa e Escola
+        Pessoa pessoa = pessoaDAO.buscarPorId(pessoaId);
+        Escola escola = escolaDAO.buscarPorId(escolaId);
+
+        if (pessoa == null || escola == null) {
+            System.out.println("Pessoa ou Escola não encontrada!");
+            return;
+        }
+
+        // Validar tipo
+        String tipo;
+        do {
+            tipo = ConsoleUtil.lerString("Tipo (ADMIN_ESCOLA/PROFESSOR): ").toUpperCase();
+        } while (!tipo.matches("ADMIN_ESCOLA|PROFESSOR"));
+
+        // Verificar se já existe vínculo
+        Usuario usuarioExistente = null;
+        for (Usuario u : usuarioDAO.listarTodos()) {
+            if (u.getPessoa().getId() == pessoaId) {
+                usuarioExistente = u;
+                break;
+            }
+        }
+
+        if (usuarioExistente != null) {
+            // Atualizar vínculo existente
+            usuarioExistente.setEscola(escola);
+            usuarioExistente.setTipo(tipo);
+            usuarioDAO.atualizar(usuarioExistente);
+            System.out.println("Vínculo atualizado!");
+        } else {
+            // Criar novo vínculo
+            int novoId = gerarNovoId();
+            Usuario novoUsuario = new Usuario(novoId, pessoa, escola, tipo);
+            usuarioDAO.criar(novoUsuario);
+            System.out.println("Usuário vinculado! ID: " + novoId);
+        }
+    }
+
+    public void listarUsuariosDaEscola(int escolaId) {
+        System.out.println("\n=== USUÁRIOS VINCULADOS À ESCOLA ===");
+        Usuario[] usuarios = usuarioDAO.listarTodos();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEscola().getId() == escolaId) {
+                System.out.println(
+                        "ID: " + usuario.getId()
+                        + " | Nome: " + usuario.getPessoa().getNome()
+                        + " | Tipo: " + usuario.getTipo()
+                );
+            }
+        }
+    }
+
+    public void deletarUsuarioEscola(int escolaId) {
+        int id = ConsoleUtil.lerInt("ID do Usuário para remover vínculo: ", 1, Integer.MAX_VALUE);
+        Usuario usuario = usuarioDAO.buscarPorId(id);
+
+        if (usuario != null && usuario.getEscola().getId() == escolaId) {
+            usuarioDAO.deletar(id);
+            System.out.println("Vínculo removido com sucesso!");
+        } else {
+            System.out.println("Usuário não encontrado ou não vinculado a esta escola!");
+        }
+    }
+
+    private int gerarNovoId() {
+        int maxId = 0;
+        for (Usuario u : usuarioDAO.listarTodos()) {
+            if (u.getId() > maxId) {
+                maxId = u.getId();
+            }
+        }
+        return maxId + 1;
+    }
 }

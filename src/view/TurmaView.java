@@ -39,31 +39,35 @@ public class TurmaView {
         } while (opcao != 5);
     }
 
-    public void exibirMenuEscola(int escolaId) {
+    public void exibirMenuAdminEscola(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU TURMA (ESCOLA) ===");
             System.out.println("1 - Criar");
             System.out.println("2 - Atualizar");
-            System.out.println("3 - Listar");
-            System.out.println("4 - Deletar");
-            System.out.println("5 - Voltar");
-            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
+            System.out.println("3 - Listar Turmas");
+            System.out.println("4 - Listar Alunos de uma Turma");
+            System.out.println("5 - Deletar");
+            System.out.println("6 - Voltar");
+            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 6);
 
             switch (opcao) {
                 case 1:
                     turmaController.criarTurmaEscola(escolaId);
                     break;
                 case 2:
-                   // turmaController.atualizarTurmaEscola(escolaId);
+                    turmaController.atualizarTurmaEscola(escolaId);
                     break;
                 case 3:
-                   // turmaController.listarTurmasEscola(escolaId);
+                    turmaController.listarTurmasDaEscola(escolaId);
                     break;
                 case 4:
-                   // turmaController.deletarTurmaEscola(escolaId);
+                    turmaController.listarAlunosDaTurma(escolaId);
+                    break;
+                case 5:
+                    turmaController.deletarTurmaEscola(escolaId);
                     break;
             }
-        } while (opcao != 5);
+        } while (opcao != 6);
     }
 }

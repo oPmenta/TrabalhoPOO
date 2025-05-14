@@ -1,11 +1,14 @@
 package controller;
 
+import model.Aluno;
+import model.AlunoTurma;
 import model.DAO.TurmaDAO;
 import model.DAO.EscolaDAO;
 import model.DAO.CursoDAO;
 import model.Turma;
 import model.Escola;
 import model.Curso;
+import model.DAO.AlunoTurmaDAO;
 import util.ConsoleUtil;
 
 public class TurmaController {
@@ -13,11 +16,13 @@ public class TurmaController {
     private final TurmaDAO turmaDAO;
     private final EscolaDAO escolaDAO;
     private final CursoDAO cursoDAO;
+    private final AlunoTurmaDAO alunoTurmaDAO;
 
-    public TurmaController(TurmaDAO turmaDAO, EscolaDAO escolaDAO, CursoDAO cursoDAO) {
+    public TurmaController(TurmaDAO turmaDAO, EscolaDAO escolaDAO, CursoDAO cursoDAO, AlunoTurmaDAO alunoTurmaDAO) {
         this.turmaDAO = turmaDAO;
         this.escolaDAO = escolaDAO;
         this.cursoDAO = cursoDAO;
+        this.alunoTurmaDAO = alunoTurmaDAO;
     }
 
     public void criarTurmaAdminGeral() {
@@ -46,7 +51,6 @@ public class TurmaController {
 
     // Implementar outros métodos...
     public void atualizarTurmaAdminGeral() {
-        // 1) Lê o ID da turma e busca no banco
         int turmaId = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
         Turma turma = turmaDAO.buscarPorId(turmaId);
 
@@ -55,12 +59,10 @@ public class TurmaController {
             return;
         }
 
-        // 2) Lê os novos valores
         String novoNome = ConsoleUtil.lerString("Novo Nome da Turma [" + turma.getNome() + "]: ");
         int novoCursoId = ConsoleUtil.lerInt("Novo ID do Curso [" + turma.getCurso().getId() + "]: ", 1, Integer.MAX_VALUE);
         int novaEscolaId = ConsoleUtil.lerInt("Novo ID da Escola [" + turma.getEscola().getId() + "]: ", 1, Integer.MAX_VALUE);
 
-        // 3) Busca as entidades relacionadas
         Curso novoCurso = cursoDAO.buscarPorId(novoCursoId);
         Escola novaEscola = escolaDAO.buscarPorId(novaEscolaId);
 
@@ -69,14 +71,10 @@ public class TurmaController {
             return;
         }
 
-        // 4) Atualiza os campos da turma somente se o usuário digitou algo (pode querer manter o existente)
-        if (!novoNome.trim().isEmpty()) {
-            turma.setNome(novoNome);
-        }
+        // Atualiza o nome SEM VALIDAÇÃO
+        turma.setNome(novoNome); // Aceita qualquer entrada (vazia, espaços, etc.)
         turma.setCurso(novoCurso);
         turma.setEscola(novaEscola);
-
-        // 5) Persiste e notifica
         turmaDAO.atualizar(turma);
         System.out.println("Turma atualizada com sucesso!");
     }
@@ -93,4 +91,83 @@ public class TurmaController {
         turmaDAO.deletar(id);
         System.out.println("Turma deletada!");
     }
+
+    public void atualizarTurmaEscola(int escolaId) {
+        int idTurma = ConsoleUtil.lerInt("ID da Turma para atualizar: ", 1, Integer.MAX_VALUE);
+        Turma turma = turmaDAO.buscarPorId(idTurma);
+
+        // Verifica se a turma existe e pertence à escola
+        if (turma == null || turma.getEscola().getId() != escolaId) {
+            System.out.println("Turma não encontrada ou não pertence à sua escola!");
+            return;
+        }
+
+        // Solicita novo nome e atualiza
+        String novoNome = ConsoleUtil.lerString("Novo nome da Turma: ");
+        turma.setNome(novoNome);
+        turmaDAO.atualizar(turma);
+        System.out.println("Turma atualizada com sucesso!");
+    }
+
+    public void listarTurmasDaEscola(int escolaId) {
+        System.out.println("\n=== TURMAS DA ESCOLA ===");
+        Turma[] turmas = turmaDAO.listarTodos();
+        for (Turma turma : turmas) {
+            if (turma != null && turma.getEscola().getId() == escolaId) {
+                System.out.println(
+                        "ID: " + turma.getId()
+                        + " | Nome: " + turma.getNome()
+                        + " | Curso: " + turma.getCurso().getSigla()
+                        + " (" + turma.getCurso().getNome() + ")"
+                );
+            }
+        }
+    }
+
+    public void listarAlunosDaTurma(int escolaId) {
+        int idTurma = ConsoleUtil.lerInt("ID da Turma para listar alunos: ", 1, Integer.MAX_VALUE);
+        Turma turma = turmaDAO.buscarPorId(idTurma);
+
+        if (turma == null || turma.getEscola().getId() != escolaId) {
+            System.out.println("Erro: Turma não encontrada ou não pertence à sua escola!");
+            return;
+        }
+
+        System.out.println("\n=== ALUNOS DA TURMA " + idTurma + " ===");
+        AlunoTurma[] vinculos = alunoTurmaDAO.listarPorTurma(idTurma); // Método correto do DAO
+        boolean found = false;
+
+        if (vinculos != null) { // Verifica se o array não é nulo
+            for (AlunoTurma rel : vinculos) {
+                if (rel != null) { // Remove a condição redundante (já filtrado pelo DAO)
+                    Aluno a = rel.getAluno();
+                    System.out.println(
+                            "ID: " + a.getId()
+                            + " | Nome: " + a.getNome()
+                            + " | CPF: " + a.getCpf()
+                            + " | Email: " + a.getEmail()
+                    );
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("Nenhum aluno vinculado a esta turma.");
+        }
+    }
+
+    public void deletarTurmaEscola(int escolaId) {
+        int idTurma = ConsoleUtil.lerInt("ID da Turma para deletar: ", 1, Integer.MAX_VALUE);
+        Turma turma = turmaDAO.buscarPorId(idTurma);
+
+        if (turma == null || turma.getEscola().getId() != escolaId) {
+            System.out.println("Turma não encontrada ou não pertence à sua escola!");
+            return;
+        }
+
+        turmaDAO.deletar(idTurma);
+        System.out.println("Turma deletada com sucesso!");
+    }
+
 }

@@ -20,20 +20,50 @@ public class AlunoTurmaController {
         this.turmaDAO = turmaDAO;
     }
 
-    public void vincularAlunoTurma() {
+    public void vincularAlunoTurma(int escolaId) {
         int alunoId = ConsoleUtil.lerInt("ID do Aluno: ", 1, Integer.MAX_VALUE);
-        int turmaId = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
         Aluno aluno = alunoDAO.buscarPorId(alunoId);
-        Turma turma = turmaDAO.buscarPorId(turmaId);
 
-        if (aluno != null && turma != null) {
-            AlunoTurma relacao = new AlunoTurma(0, aluno, turma);
-            alunoTurmaDAO.criar(relacao);
-            System.out.println("Aluno vinculado à turma!");
-        } else {
-            System.out.println("Aluno ou Turma não encontrado!");
+        if (aluno == null) {
+            System.out.println("Erro: Aluno não encontrado!");
+            return;
         }
+
+        int turmaId = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
+        Turma turma = turmaDAO.buscarPorIdEEscola(turmaId, escolaId);
+
+        if (turma == null) {
+            System.out.println("Erro: Turma não encontrada ou não pertence à escola!");
+            return;
+        }
+
+        if (alunoTurmaDAO.buscarPorAlunoETurma(alunoId, turmaId) != null) {
+            System.out.println("Erro: Aluno já está vinculado a esta turma!");
+            return;
+        }
+
+        AlunoTurma relacao = new AlunoTurma(0, aluno, turma);
+        alunoTurmaDAO.criar(relacao);
+        System.out.println("Aluno vinculado à turma com sucesso!");
     }
 
     // Implementar outros métodos...
+    public void moverAlunoTurma(int escolaId) {
+        // Obter IDs via View
+        int turmaOrigemId = ConsoleUtil.lerInt("ID da Turma de Origem: ", 1, Integer.MAX_VALUE);
+        int turmaDestinoId = ConsoleUtil.lerInt("ID da Turma de Destino: ", 1, Integer.MAX_VALUE);
+
+        // Validar turmas
+        Turma turmaOrigem = turmaDAO.buscarPorIdEEscola(turmaOrigemId, escolaId);
+        Turma turmaDestino = turmaDAO.buscarPorIdEEscola(turmaDestinoId, escolaId);
+
+        if (turmaOrigem == null || turmaDestino == null) {
+            System.out.println("Erro: Uma ou ambas as turmas são inválidas ou não pertencem à escola!");
+            return;
+        }
+
+        // Atualizar vínculos
+        alunoTurmaDAO.atualizarTurmaAlunos(turmaOrigemId, turmaDestino);
+        System.out.println("Alunos movidos com sucesso!");
+    }
 }
