@@ -12,7 +12,7 @@ public class RegistroProfessorDescricaoView {
 
     }
 
-    public void exibirMenu() {
+    public void exibirMenu(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU OBSERVAÇÕES DO ALUNO ===");
@@ -25,16 +25,16 @@ public class RegistroProfessorDescricaoView {
 
             switch (opcao) {
                 case 1:
-
+                    registroProfessorDescricaoController.criarRegistroDesc(escolaId);
                     break;
                 case 2:
-
+                    registroProfessorDescricaoController.atualizarRegistroDesc(escolaId);
                     break;
                 case 3:
-
+                    registroProfessorDescricaoController.listarRegistroDesc(escolaId);
                     break;
                 case 4:
-
+                    registroProfessorDescricaoController.deletarRegistroDesc(escolaId);
                     break;
                 case 5:
                     System.out.println("Saindo...");

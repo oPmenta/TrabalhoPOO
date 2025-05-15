@@ -1,21 +1,28 @@
 package model.DAO;
 
 import model.RegistroProfessor;
+import util.DataUtil;
 
 public class RegistroProfessorDAO {
+
     private RegistroProfessor[] registros = new RegistroProfessor[10];
     private int ultimoId = 0;
     private int capacidade = 10;
 
     public void criar(RegistroProfessor registro) {
-        if (ultimoId >= capacidade) aumentarCapacidade();
+        if (ultimoId >= capacidade) {
+            aumentarCapacidade();
+        }
         registro.setId(++ultimoId);
+        registro.setDataCriacao(DataUtil.getDataAtual());
         registros[ultimoId - 1] = registro;
     }
 
     public RegistroProfessor buscarPorId(int id) {
         for (int i = 0; i < ultimoId; i++) {
-            if (registros[i].getId() == id) return registros[i];
+            if (registros[i].getId() == id) {
+                return registros[i];
+            }
         }
         return null;
     }
@@ -29,7 +36,7 @@ public class RegistroProfessorDAO {
     }
 
     public void atualizar(RegistroProfessor registro) {
-        registro.setDataModificacao(registro.getDataModificacao());
+        registro.setDataModificacao(DataUtil.getDataAtual());
         for (int i = 0; i < ultimoId; i++) {
             if (registros[i].getId() == registro.getId()) {
                 registros[i] = registro;
@@ -46,7 +53,7 @@ public class RegistroProfessorDAO {
                 break;
             }
         }
-        
+
         if (posicao != -1) {
             for (int i = posicao; i < ultimoId - 1; i++) {
                 registros[i] = registros[i + 1];

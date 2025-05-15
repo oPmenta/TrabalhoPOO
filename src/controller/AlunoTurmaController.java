@@ -38,7 +38,7 @@ public class AlunoTurmaController {
         }
 
         if (alunoTurmaDAO.buscarPorAlunoETurma(alunoId, turmaId) != null) {
-            System.out.println("Erro: Aluno ja está vinculado a esta turma!");
+            System.out.println("Erro: Aluno ja esta vinculado a esta turma!");
             return;
         }
 
@@ -58,7 +58,7 @@ public class AlunoTurmaController {
         Turma turmaDestino = turmaDAO.buscarPorIdEEscola(turmaDestinoId, escolaId);
 
         if (turmaOrigem == null || turmaDestino == null) {
-            System.out.println("Erro: Uma ou ambas as turmas são invalidas ou nao pertencem à escola!");
+            System.out.println("Erro: Uma ou ambas as turmas sao invalidas ou nao pertencem a escola!");
             return;
         }
 

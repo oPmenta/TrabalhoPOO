@@ -27,10 +27,10 @@ public class AdminEscolaView {
         do {
             System.out.println("\n=== MENU ADMIN ESCOLA ===");
             System.out.println("1 - Menu de Aluno");
-            System.out.println("2 - Menu de Usuários da Escola");
+            System.out.println("2 - Menu de Usuarios da Escola");
             System.out.println("3 - Menu de Curso");
             System.out.println("4 - Menu de Turma");
-            System.out.println("5 - Vincular Alunos às Turmas");
+            System.out.println("5 - Vincular Alunos as Turmas");
             System.out.println("6 - Logout");
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 6);
 

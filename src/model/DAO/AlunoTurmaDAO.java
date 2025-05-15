@@ -88,4 +88,15 @@ public class AlunoTurmaDAO {
             }
         }
     }
+
+    public boolean existeVinculoAlunoEscola(int alunoId, int escolaId) {
+        for (int i = 0; i < ultimoId; i++) {
+            AlunoTurma vinculo = vinculos[i];
+            if (vinculo.getAluno().getId() == alunoId
+                    && vinculo.getTurma().getEscola().getId() == escolaId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

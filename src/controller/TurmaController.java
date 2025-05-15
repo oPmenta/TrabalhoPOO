@@ -45,7 +45,7 @@ public class TurmaController {
             turmaDAO.criar(turma);
             System.out.println("Turma criada com ID: " + turma.getId());
         } else {
-            System.out.println("Escola ou Curso não encontrado!");
+            System.out.println("Escola ou Curso nao encontrado!");
         }
     }
 
@@ -137,9 +137,9 @@ public class TurmaController {
         AlunoTurma[] vinculos = alunoTurmaDAO.listarPorTurma(idTurma); // Método correto do DAO
         boolean found = false;
 
-        if (vinculos != null) { // Verifica se o array não é nulo
+        if (vinculos != null) { // Verifica se o array nao � nulo
             for (AlunoTurma rel : vinculos) {
-                if (rel != null) { // Remove a condição redundante (já filtrado pelo DAO)
+                if (rel != null) { // Remove a condi�ao redundante (ja filtrado pelo DAO)
                     Aluno a = rel.getAluno();
                     System.out.println(
                             "ID: " + a.getId()

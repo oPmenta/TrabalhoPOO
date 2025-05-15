@@ -23,7 +23,7 @@ public class UsuarioController {
     public void criarUsuario() {
         int pessoaId = ConsoleUtil.lerInt("ID da Pessoa: ", 1, Integer.MAX_VALUE);
         int escolaId = ConsoleUtil.lerInt("ID da Escola: ", 1, Integer.MAX_VALUE);
-        String tipo = ConsoleUtil.lerString("Tipo (ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR): ").toUpperCase();
+        String tipo = ConsoleUtil.lerString("Tipo (ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR/FUNCIONARIO): ").toUpperCase();
 
         Pessoa pessoa = pessoaDAO.buscarPorId(pessoaId);
         Escola escola = escolaDAO.buscarPorId(escolaId);
@@ -31,7 +31,7 @@ public class UsuarioController {
         if (pessoa != null && escola != null) {
             Usuario usuario = new Usuario(0, pessoa, escola, tipo);
             usuarioDAO.criar(usuario);
-            System.out.println("Usuário criado com ID: " + usuario.getId());
+            System.out.println("Usuario criado com ID: " + usuario.getId());
         } else {
             System.out.println("Pessoa ou Escola nao encontrada!");
         }
@@ -64,14 +64,14 @@ public class UsuarioController {
             if (novaPessoa != null && novaEscola != null) {
                 usuario.setPessoa(novaPessoa);
                 usuario.setEscola(novaEscola);
-                usuario.setTipo(ConsoleUtil.lerString("Novo Tipo(ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR): ").toUpperCase());
+                usuario.setTipo(ConsoleUtil.lerString("Novo Tipo(ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR/FUNCIONARIO): ").toUpperCase());
                 usuarioDAO.atualizar(usuario);
                 System.out.println("Usuario atualizado!");
             } else {
                 System.out.println("Pessoa ou Escola nao encontrada!");
             }
         } else {
-            System.out.println("Usuário nao encontrado!");
+            System.out.println("Usuario nao encontrado!");
         }
     }
 
@@ -104,8 +104,8 @@ public class UsuarioController {
         // Validar tipo
         String tipo;
         do {
-            tipo = ConsoleUtil.lerString("Tipo (ADMIN_ESCOLA/PROFESSOR): ").toUpperCase();
-        } while (!tipo.matches("ADMIN_ESCOLA|PROFESSOR"));
+            tipo = ConsoleUtil.lerString("Tipo (ADMIN_ESCOLA/PROFESSOR/FUNCIONARIO): ").toUpperCase();
+        } while (!tipo.matches("ADMIN_ESCOLA|PROFESSOR|FUNCIONARIO"));
 
         // Verificar se já existe vínculo
         Usuario usuarioExistente = null;
@@ -117,22 +117,22 @@ public class UsuarioController {
         }
 
         if (usuarioExistente != null) {
-            // Atualizar vínculo existente
+            // Atualizar vi�nculo existente
             usuarioExistente.setEscola(escola);
             usuarioExistente.setTipo(tipo);
             usuarioDAO.atualizar(usuarioExistente);
-            System.out.println("Vínculo atualizado!");
+            System.out.println("Vi�nculo atualizado!");
         } else {
             // Criar novo vínculo
             int novoId = gerarNovoId();
             Usuario novoUsuario = new Usuario(novoId, pessoa, escola, tipo);
             usuarioDAO.criar(novoUsuario);
-            System.out.println("Usuário vinculado! ID: " + novoId);
+            System.out.println("Usuario vinculado! ID: " + novoId);
         }
     }
 
     public void listarUsuariosDaEscola(int escolaId) {
-        System.out.println("\n=== USUÁRIOS VINCULADOS À ESCOLA ===");
+        System.out.println("\n=== USUARIOS VINCULADOS DA ESCOLA ===");
         Usuario[] usuarios = usuarioDAO.listarTodos();
         for (Usuario usuario : usuarios) {
             if (usuario.getEscola().getId() == escolaId) {
@@ -146,14 +146,14 @@ public class UsuarioController {
     }
 
     public void deletarUsuarioEscola(int escolaId) {
-        int id = ConsoleUtil.lerInt("ID do Usuário para remover vínculo: ", 1, Integer.MAX_VALUE);
+        int id = ConsoleUtil.lerInt("ID do Usuario para remover vi�nculo: ", 1, Integer.MAX_VALUE);
         Usuario usuario = usuarioDAO.buscarPorId(id);
 
         if (usuario != null && usuario.getEscola().getId() == escolaId) {
             usuarioDAO.deletar(id);
-            System.out.println("Vínculo removido com sucesso!");
+            System.out.println("Vi�nculo removido com sucesso!");
         } else {
-            System.out.println("Usuário nao encontrado ou nao vinculado a esta escola!");
+            System.out.println("Usuario nao encontrado ou nao vinculado a esta escola!");
         }
     }
 

@@ -20,9 +20,9 @@ public class Main {
         TurmaDAO turmaDAO = new TurmaDAO(escolaDAO, cursoDAO);
         AlunoDAO alunoDAO = new AlunoDAO();
         AlunoTurmaDAO alunoTurmaDAO = new AlunoTurmaDAO(alunoDAO, turmaDAO);
-        RegistroProfessorDAO registroProfessorDAO = new RegistroProfessorDAO ();
+        RegistroProfessorDAO registroProfessorDAO = new RegistroProfessorDAO();
         RegistroProfessorDescricaoDAO registroProfessorDescricaoDAO = new RegistroProfessorDescricaoDAO();
-        
+
         // Inicialização dos controladores
         PessoaController pessoaController = new PessoaController(pessoaDAO);
         EscolaController escolaController = new EscolaController(escolaDAO);
@@ -31,9 +31,9 @@ public class Main {
         UsuarioController usuarioController = new UsuarioController(pessoaDAO, escolaDAO, usuarioDAO);
         AlunoController alunoController = new AlunoController(alunoDAO);
         AlunoTurmaController alunoTurmaController = new AlunoTurmaController(alunoTurmaDAO, alunoDAO, turmaDAO);
-        RegistroProfessorController registroProfessorController = new RegistroProfessorController(registroProfessorDAO, usuarioDAO);
-        RegistroProfessorDescricaoController registroProfessorDescricaoController = new RegistroProfessorDescricaoController();
-        VidaAcademicaController vidaAcademicaController = new VidaAcademicaController ();
+        RegistroProfessorController registroProfessorController = new RegistroProfessorController(registroProfessorDAO, usuarioDAO, turmaDAO);
+        RegistroProfessorDescricaoController registroProfessorDescricaoController = new RegistroProfessorDescricaoController(registroProfessorDescricaoDAO, registroProfessorDAO, alunoDAO, alunoTurmaDAO);
+        VidaAcademicaController vidaAcademicaController = new VidaAcademicaController();
 
         // Cria o admin pré-cadastrado se necessário
         criarAdminSeNecessario(pessoaController, escolaController, usuarioController);
@@ -61,11 +61,12 @@ public class Main {
     }
 
     private static void criarAdminSeNecessario(PessoaController pessoaController, EscolaController escolaController, UsuarioController usuarioController) {
-        // Verifica se já existem os admins
+        // Verifica se já existem os admins e o professor
         Pessoa adminGeral = pessoaController.buscarPorLogin("admin");
         Pessoa adminEscola = pessoaController.buscarPorLogin("adminE");
+        Pessoa professor = pessoaController.buscarPorLogin("professor");
 
-        if (adminGeral == null && adminEscola == null) {
+        if (adminGeral == null && adminEscola == null && professor == null) {
             // Cria Pessoa admin_geral
             Pessoa admin1 = new Pessoa(1, "Admin", "admin", "admin123");
             pessoaController.criarPessoa(admin1);
@@ -73,6 +74,14 @@ public class Main {
             // Cria Pessoa admin_escola
             Pessoa admin2 = new Pessoa(2, "AdminE", "adminE", "admin123");
             pessoaController.criarPessoa(admin2);
+
+            // Cria Pessoa professor
+            Pessoa professorE = new Pessoa(3, "Professor", "professor", "123");
+            pessoaController.criarPessoa(professorE);
+
+            // Cria Pessoa funcionario
+            Pessoa funcionarioE = new Pessoa(4, "Funcionario", "funcionario", "123");
+            pessoaController.criarPessoa(funcionarioE);
 
             // Cria Escola padrão
             Escola escolaPadrao = new Escola(1, "IFTM", "Uberaba", "(34)3326-1100");
@@ -85,6 +94,15 @@ public class Main {
             // Cria Usuário admin_escola
             Usuario adminEUsuario = new Usuario(2, admin2, escolaPadrao, "ADMIN_ESCOLA");
             usuarioController.criarUsuario(adminEUsuario);
+
+            // Cria Usuário professor
+            Usuario professorUsuario = new Usuario(3, professorE, escolaPadrao, "PROFESSOR");
+            usuarioController.criarUsuario(professorUsuario);
+
+            // Cria Usuário funcionario
+            Usuario funcionarioUsuario = new Usuario(4, funcionarioE, escolaPadrao, "FUNCIONARIO");
+            usuarioController.criarUsuario(funcionarioUsuario);
+
         }
     }
 
@@ -144,9 +162,17 @@ public class Main {
             ProfessorView professorView = new ProfessorView(
                     registroProfessorController,
                     registroProfessorDescricaoController,
-                    vidaAcademicaController
+                    vidaAcademicaController,
+                    alunoTurmaController
             );
             professorView.exibirMenu(usuarioLogado.getEscola().getId());
+            usuarioLogado = null; // Logout após sair do menu
+        } else if (usuarioLogado.getTipo().equals("FUNCIONARIO")) {
+            FuncionarioView funcionarioView = new FuncionarioView(
+                    vidaAcademicaController,
+                    alunoTurmaController
+            );
+            funcionarioView.exibirMenu(usuarioLogado.getEscola().getId());
             usuarioLogado = null; // Logout após sair do menu
         }
 

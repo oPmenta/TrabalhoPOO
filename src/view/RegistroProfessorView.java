@@ -11,7 +11,7 @@ public class RegistroProfessorView {
         this.registroProfessorController = registroProfessorController;
     }
 
-    public void exibirMenu() {
+    public void exibirMenu(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU REGISTROS DA TURMA ===");
@@ -24,16 +24,16 @@ public class RegistroProfessorView {
 
             switch (opcao) {
                 case 1:
-
+                    registroProfessorController.criarRegistro(escolaId);
                     break;
                 case 2:
-
+                    registroProfessorController.atualizarRegistro(escolaId);
                     break;
                 case 3:
-                    
+                    registroProfessorController.listarRegistrosPorEscola(escolaId);
                     break;
                 case 4:
-                    
+                    registroProfessorController.deletarRegistro(escolaId);
                     break;
                 case 5:
                     System.out.println("Voltar...");

@@ -8,14 +8,16 @@ public class ProfessorView {
     private RegistroProfessorController registroProfessorController;
     private RegistroProfessorDescricaoController registroProfessorDescricaoController;
     private VidaAcademicaController vidaAcademicaController;
+    private AlunoTurmaController alunoTurmaController;
 
-    public ProfessorView(RegistroProfessorController registroProfessorController, RegistroProfessorDescricaoController registroProfessorDescricaoController, VidaAcademicaController vidaAcademicaController) {
+    public ProfessorView(RegistroProfessorController registroProfessorController, RegistroProfessorDescricaoController registroProfessorDescricaoController, VidaAcademicaController vidaAcademicaController, AlunoTurmaController alunoTurmaController) {
         this.registroProfessorController = registroProfessorController;
         this.registroProfessorDescricaoController = registroProfessorDescricaoController;
         this.vidaAcademicaController = vidaAcademicaController;
+        this.alunoTurmaController = alunoTurmaController;
     }
 
-    public void exibirMenu(int idEscola) {
+    public void exibirMenu(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU PROFESSOR ===");
@@ -30,10 +32,10 @@ public class ProfessorView {
 
             switch (opcao) {
                 case 1:
-                    new RegistroProfessorView(registroProfessorController).exibirMenu();
+                    new RegistroProfessorView(registroProfessorController).exibirMenu(escolaId);
                     break;
                 case 2:
-                    new RegistroProfessorDescricaoView(registroProfessorDescricaoController).exibirMenu();
+                    new RegistroProfessorDescricaoView(registroProfessorDescricaoController).exibirMenu(escolaId);
                     break;
                 case 3:
                     new VidaAcademicaView(vidaAcademicaController).exibirMenu();
