@@ -66,4 +66,37 @@ public class AlunoTurmaController {
         alunoTurmaDAO.atualizarTurmaAlunos(turmaOrigemId, turmaDestino);
         System.out.println("Alunos movidos com sucesso!");
     }
+
+    public void listarAlunosTurma(int escolaId) {
+        int turmaId = ConsoleUtil.lerInt("ID da Turma para listar alunos: ", 1, Integer.MAX_VALUE);
+        Turma turma = turmaDAO.buscarPorIdEEscola(turmaId, escolaId);
+
+        if (turma == null) {
+            System.out.println("Erro: Turma não encontrada ou não pertence à escola!");
+            return;
+        }
+
+        AlunoTurma[] vinculos = alunoTurmaDAO.listarPorTurma(turmaId);
+        System.out.println("\n=== ALUNOS DA TURMA " + turmaId + " ===");
+
+        if (vinculos.length == 0) {
+            System.out.println("Nenhum aluno vinculado a esta turma.");
+            return;
+        }
+
+        for (AlunoTurma vinculo : vinculos) {
+            Aluno aluno = vinculo.getAluno();
+            System.out.printf(
+                    "ID: %d | Nome: %s | CPF: %s | Email: %s\n",
+                    aluno.getId(),
+                    aluno.getNome(),
+                    aluno.getCpf(),
+                    aluno.getEmail()
+            );
+        }
+    }
+    
+    
+    
+
 }

@@ -23,7 +23,7 @@ public class EscolaController {
 
     public void criarEscola(Escola escola) {
         escolaDAO.criar(escola);
-        System.out.println("Escola criada com ID: " + escola.getId());
+       // System.out.println("Escola criada com ID: " + escola.getId());
     }
 
     public void atualizarEscola() {

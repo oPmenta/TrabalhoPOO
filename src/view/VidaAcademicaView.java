@@ -11,7 +11,7 @@ public class VidaAcademicaView {
         this.vidaAcademicaController = vidaAcademicaController;
     }
 
-    public void exibirMenu() {
+    public void exibirMenu(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU EVENTOS DA VIDA ACADÊMICA ===");
@@ -24,16 +24,16 @@ public class VidaAcademicaView {
 
             switch (opcao) {
                 case 1:
-
+                    vidaAcademicaController.criarVidaAcademica(escolaId);
                     break;
                 case 2:
-
+                    vidaAcademicaController.atualizarVidaAcademica(escolaId);
                     break;
                 case 3:
-
+                    vidaAcademicaController.listarRegistrosAcademicos(escolaId);
                     break;
                 case 4:
-
+                    vidaAcademicaController.deletarVidaAcademica(escolaId);
                     break;
                 case 5:
                     System.out.println("Voltando...");

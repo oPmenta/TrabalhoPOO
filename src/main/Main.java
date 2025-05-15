@@ -22,6 +22,7 @@ public class Main {
         AlunoTurmaDAO alunoTurmaDAO = new AlunoTurmaDAO(alunoDAO, turmaDAO);
         RegistroProfessorDAO registroProfessorDAO = new RegistroProfessorDAO();
         RegistroProfessorDescricaoDAO registroProfessorDescricaoDAO = new RegistroProfessorDescricaoDAO();
+        VidaAcademicaDAO vidaAcademicaDAO = new VidaAcademicaDAO();
 
         // Inicialização dos controladores
         PessoaController pessoaController = new PessoaController(pessoaDAO);
@@ -33,7 +34,7 @@ public class Main {
         AlunoTurmaController alunoTurmaController = new AlunoTurmaController(alunoTurmaDAO, alunoDAO, turmaDAO);
         RegistroProfessorController registroProfessorController = new RegistroProfessorController(registroProfessorDAO, usuarioDAO, turmaDAO);
         RegistroProfessorDescricaoController registroProfessorDescricaoController = new RegistroProfessorDescricaoController(registroProfessorDescricaoDAO, registroProfessorDAO, alunoDAO, alunoTurmaDAO);
-        VidaAcademicaController vidaAcademicaController = new VidaAcademicaController();
+        VidaAcademicaController vidaAcademicaController = new VidaAcademicaController(vidaAcademicaDAO, alunoDAO, alunoTurmaDAO, turmaDAO, registroProfessorDAO, registroProfessorDescricaoDAO);
 
         // Cria o admin pré-cadastrado se necessário
         criarAdminSeNecessario(pessoaController, escolaController, usuarioController);

@@ -39,7 +39,7 @@ public class UsuarioController {
 
     public void criarUsuario(Usuario u) {
         usuarioDAO.criar(u);
-        System.out.println("Usuario padrao criado com ID: " + u.getId());
+       // System.out.println("Usuario padrao criado com ID: " + u.getId());
     }
 
     public Usuario autenticar(String login, String senha) {

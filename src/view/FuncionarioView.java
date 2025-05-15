@@ -13,7 +13,7 @@ public class FuncionarioView {
         this.alunoTurmaController = alunoTurmaController;
     }
 
-    public void exibirMenu(int idEscola) {
+    public void exibirMenu(int escolaId) {
         int opcao;
         do {
             System.out.println("\n=== MENU PROFESSOR ===");
@@ -25,13 +25,13 @@ public class FuncionarioView {
 
             switch (opcao) {
                 case 1:
-                    // 
+                    new VidaAcademicaView(vidaAcademicaController).exibirMenu(escolaId);
                     break;
                 case 2:
-                    //  
+                    alunoTurmaController.listarAlunosTurma(escolaId);
                     break;
                 case 3:
-                    // 
+                    vidaAcademicaController.exibirTimelineAluno(escolaId);
                     break;
                 case 4:
                     System.out.println("Saindo...");

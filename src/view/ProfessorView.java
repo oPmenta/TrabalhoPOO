@@ -38,16 +38,16 @@ public class ProfessorView {
                     new RegistroProfessorDescricaoView(registroProfessorDescricaoController).exibirMenu(escolaId);
                     break;
                 case 3:
-                    new VidaAcademicaView(vidaAcademicaController).exibirMenu();
+                    new VidaAcademicaView(vidaAcademicaController).exibirMenu(escolaId);
                     break;
                 case 4:
-                    // metodo de listar alunos de uma turma
+                    alunoTurmaController.listarAlunosTurma(escolaId);
                     break;
                 case 5:
-                    // metodo de mostrar historico do aluno
+                    vidaAcademicaController.exibirTimelineAluno(escolaId);
                     break;
                 case 6:
-                    // metodo de relatorio do conselho de classe
+                    vidaAcademicaController.gerarRelatorioConselhoTurma(escolaId);
                     break;
                 case 7:
                     System.out.println("Saindo...");
