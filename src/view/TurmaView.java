@@ -45,7 +45,7 @@ public class TurmaView {
     public void exibirMenuAdminEscola(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU TURMA (ESCOLA) ===");
+            System.out.println("\n=== MENU TURMA (ADMIN ESCOLA) ===");
             System.out.println("1 - Criar");
             System.out.println("2 - Atualizar");
             System.out.println("3 - Listar Turmas");

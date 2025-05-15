@@ -5,32 +5,40 @@ import util.ConsoleUtil;
 
 public class RegistroProfessorView {
 
-    private final RegistroProfessorController registroController;
+    private final RegistroProfessorController registroProfessorController;
 
-    public RegistroProfessorView(RegistroProfessorController registroController) {
-        this.registroController = registroController;
+    public RegistroProfessorView(RegistroProfessorController registroProfessorController) {
+        this.registroProfessorController = registroProfessorController;
     }
 
     public void exibirMenu() {
         int opcao;
         do {
-            System.out.println("\n=== MENU REGISTROS PROFESSOR ===");
-            System.out.println("1 - Criar Registro");
-            System.out.println("2 - Listar Registros");
-            System.out.println("3 - Voltar");
-            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 3);
+            System.out.println("\n=== MENU REGISTROS DA TURMA ===");
+            System.out.println("1 - Registrar dados gerais da turma");
+            System.out.println("2 - Atualizar registros de turma");
+            System.out.println("3 - Listar registros de turma");
+            System.out.println("4 - Deletar registro da turma");
+            System.out.println("5 - Voltar");
+            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
 
             switch (opcao) {
                 case 1:
-                    //registroController.criarRegistro();
+
                     break;
                 case 2:
-                    //registroController.listarRegistros();
+
                     break;
                 case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
                     System.out.println("Voltar...");
                     break;
             }
-        } while (opcao != 3);
+        } while (opcao != 5);
     }
 }

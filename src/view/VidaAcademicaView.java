@@ -14,23 +14,31 @@ public class VidaAcademicaView {
     public void exibirMenu() {
         int opcao;
         do {
-            System.out.println("\n=== MENU VIDA ACADÃŠMICA ===");
-            System.out.println("1 - Adicionar Registro");
-            System.out.println("2 - Listar Registros");
-            System.out.println("3 - Voltar");
-            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 3);
+            System.out.println("\n=== MENU EVENTOS DA VIDA ACADÊMICA ===");
+            System.out.println("1 - Registrar eventos da vida acadêmica");
+            System.out.println("2 - Atualizar eventos da vida acadêmica");
+            System.out.println("3 - Listar eventos da vida acadêmica");
+            System.out.println("4 - Deletar eventos da vida acadêmica");
+            System.out.println("5 - Voltar");
+            opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
 
             switch (opcao) {
                 case 1:
-                    //vidaAcademicaController.criarRegistro();
+
                     break;
                 case 2:
-                    //vidaAcademicaController.listarRegistros();
+
                     break;
                 case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
                     System.out.println("Voltando...");
                     break;
             }
-        } while (opcao != 3);
+        } while (opcao != 5);
     }
 }

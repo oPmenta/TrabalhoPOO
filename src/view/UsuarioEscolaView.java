@@ -24,10 +24,10 @@ public class UsuarioEscolaView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU USUÁRIOS DA ESCOLA ===");
-            System.out.println("1 - Vincular Usuário");
-            System.out.println("2 - Listar Usuários");
-            System.out.println("3 - Remover Vínculo");
+            System.out.println("\n=== MENU USUARIOS DA ESCOLA ===");
+            System.out.println("1 - Vincular Usuario");
+            System.out.println("2 - Listar Usuarios");
+            System.out.println("3 - Remover Vinculo");
             System.out.println("4 - Voltar");
 
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);

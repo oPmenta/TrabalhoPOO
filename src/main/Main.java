@@ -20,7 +20,9 @@ public class Main {
         TurmaDAO turmaDAO = new TurmaDAO(escolaDAO, cursoDAO);
         AlunoDAO alunoDAO = new AlunoDAO();
         AlunoTurmaDAO alunoTurmaDAO = new AlunoTurmaDAO(alunoDAO, turmaDAO);
-
+        RegistroProfessorDAO registroProfessorDAO = new RegistroProfessorDAO ();
+        RegistroProfessorDescricaoDAO registroProfessorDescricaoDAO = new RegistroProfessorDescricaoDAO();
+        
         // Inicialização dos controladores
         PessoaController pessoaController = new PessoaController(pessoaDAO);
         EscolaController escolaController = new EscolaController(escolaDAO);
@@ -29,6 +31,9 @@ public class Main {
         UsuarioController usuarioController = new UsuarioController(pessoaDAO, escolaDAO, usuarioDAO);
         AlunoController alunoController = new AlunoController(alunoDAO);
         AlunoTurmaController alunoTurmaController = new AlunoTurmaController(alunoTurmaDAO, alunoDAO, turmaDAO);
+        RegistroProfessorController registroProfessorController = new RegistroProfessorController(registroProfessorDAO, usuarioDAO);
+        RegistroProfessorDescricaoController registroProfessorDescricaoController = new RegistroProfessorDescricaoController();
+        VidaAcademicaController vidaAcademicaController = new VidaAcademicaController ();
 
         // Cria o admin pré-cadastrado se necessário
         criarAdminSeNecessario(pessoaController, escolaController, usuarioController);
@@ -46,7 +51,10 @@ public class Main {
                         cursoController,
                         turmaController,
                         alunoController,
-                        alunoTurmaController
+                        alunoTurmaController,
+                        registroProfessorController,
+                        registroProfessorDescricaoController,
+                        vidaAcademicaController
                 );
             }
         }
@@ -106,7 +114,10 @@ public class Main {
             CursoController cursoController,
             TurmaController turmaController,
             AlunoController alunoController,
-            AlunoTurmaController alunoTurmaController
+            AlunoTurmaController alunoTurmaController,
+            RegistroProfessorController registroProfessorController,
+            RegistroProfessorDescricaoController registroProfessorDescricaoController,
+            VidaAcademicaController vidaAcademicaController
     ) {
         if (usuarioLogado.getTipo().equals("ADMIN_GERAL")) {
             AdminGeralView adminGeralView = new AdminGeralView(
@@ -129,6 +140,15 @@ public class Main {
             );
             adminEscolaView.exibirMenu(usuarioLogado.getEscola().getId());
             usuarioLogado = null; // Logout após sair do menu
+        } else if (usuarioLogado.getTipo().equals("PROFESSOR")) {
+            ProfessorView professorView = new ProfessorView(
+                    registroProfessorController,
+                    registroProfessorDescricaoController,
+                    vidaAcademicaController
+            );
+            professorView.exibirMenu(usuarioLogado.getEscola().getId());
+            usuarioLogado = null; // Logout após sair do menu
         }
+
     }
 }

@@ -14,7 +14,7 @@ public class UsuarioView {
     public void exibirMenu() {
         int opcao;
         do {
-            System.out.println("\n=== MENU USUÁRIO ===");
+            System.out.println("\n=== MENU USUARIO ===");
             System.out.println("1 - Criar");
             System.out.println("2 - Atualizar");
             System.out.println("3 - Listar");
