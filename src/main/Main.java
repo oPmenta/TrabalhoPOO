@@ -6,13 +6,13 @@ import controller.*;
 import view.*;
 import java.util.Scanner;
 
-public class main {
+public class Main {
 
     private static Usuario usuarioLogado;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Inicializa√ß√£o dos DAOs
+        // InicializaÁ„o dos DAOs
         PessoaDAO pessoaDAO = new PessoaDAO();
         EscolaDAO escolaDAO = new EscolaDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -21,7 +21,7 @@ public class main {
         AlunoDAO alunoDAO = new AlunoDAO();
         AlunoTurmaDAO alunoTurmaDAO = new AlunoTurmaDAO(alunoDAO, turmaDAO);
 
-        // Inicializa√ß√£o dos controladores
+        // InicializaÁ„o dos controladores
         PessoaController pessoaController = new PessoaController(pessoaDAO);
         EscolaController escolaController = new EscolaController(escolaDAO);
         CursoController cursoController = new CursoController(cursoDAO);
@@ -30,7 +30,7 @@ public class main {
         AlunoController alunoController = new AlunoController(alunoDAO);
         AlunoTurmaController alunoTurmaController = new AlunoTurmaController(alunoTurmaDAO, alunoDAO, turmaDAO);
 
-        // Cria o admin pr√©-cadastrado se necess√°rio
+        // Cria o admin prÈ-cadastrado se necess·rio
         criarAdminSeNecessario(pessoaController, escolaController, usuarioController);
 
         // Loop principal
@@ -53,7 +53,7 @@ public class main {
     }
 
     private static void criarAdminSeNecessario(PessoaController pessoaController, EscolaController escolaController, UsuarioController usuarioController) {
-        // Verifica se j√° existem os admins
+        // Verifica se j· existem os admins
         Pessoa adminGeral = pessoaController.buscarPorLogin("admin");
         Pessoa adminEscola = pessoaController.buscarPorLogin("adminE");
 
@@ -66,15 +66,15 @@ public class main {
             Pessoa admin2 = new Pessoa(2, "AdminE", "adminE", "admin123");
             pessoaController.criarPessoa(admin2);
 
-            // Cria Escola padr√£o
+            // Cria Escola padr„o
             Escola escolaPadrao = new Escola(1, "IFTM", "Uberaba", "(34)3326-1100");
             escolaController.criarEscola(escolaPadrao);
 
-            // Cria Usu√°rio admin_geral
+            // Cria Usu·rio admin_geral
             Usuario adminUsuario = new Usuario(1, admin1, escolaPadrao, "ADMIN_GERAL");
             usuarioController.criarUsuario(adminUsuario);
 
-            // Cria Usu√°rio admin_escola
+            // Cria Usu·rio admin_escola
             Usuario adminEUsuario = new Usuario(2, admin2, escolaPadrao, "ADMIN_ESCOLA");
             usuarioController.criarUsuario(adminEUsuario);
         }
@@ -95,7 +95,7 @@ public class main {
         if (usuarioLogado != null) {
             System.out.println("Login realizado como: " + usuarioLogado.getTipo());
         } else {
-            System.out.println("Login ou senha inv√°lidos!");
+            System.out.println("Login ou senha inv·lidos!");
         }
     }
 
@@ -117,7 +117,7 @@ public class main {
                     turmaController
             );
             adminGeralView.exibirMenu();
-            usuarioLogado = null; // Logout ap√≥s sair do menu
+            usuarioLogado = null; // Logout apÛs sair do menu
         } else if (usuarioLogado.getTipo().equals("ADMIN_ESCOLA")) {
             AdminEscolaView adminEscolaView = new AdminEscolaView(
                     alunoController,
@@ -128,7 +128,7 @@ public class main {
                     alunoTurmaController
             );
             adminEscolaView.exibirMenu(usuarioLogado.getEscola().getId());
-            usuarioLogado = null; // Logout ap√≥s sair do menu
+            usuarioLogado = null; // Logout apÛs sair do menu
         }
     }
 }
