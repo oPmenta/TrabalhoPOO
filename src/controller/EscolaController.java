@@ -23,7 +23,8 @@ public class EscolaController {
 
     public void criarEscola(Escola escola) {
         escolaDAO.criar(escola);
-       // System.out.println("Escola criada com ID: " + escola.getId());
+        // debug do pré-cadastro
+        // System.out.println("Escola criada com ID: " + escola.getId()); 
     }
 
     public void atualizarEscola() {
@@ -43,13 +44,18 @@ public class EscolaController {
     public void listarEscolas() {
         Escola[] escolas = escolaDAO.listarTodos();
         for (Escola e : escolas) {
-            System.out.println("ID: " + e.getId() + " | Nome: " + e.getNome() + " | Cidade: " + e.getCidade());
+            System.out.println("ID: " + e.getId() + " | Nome: " + e.getNome() + " | Cidade: " + e.getCidade() + " | Telefone: " + e.getTelefone());
         }
     }
 
     public void deletarEscola() {
         int id = ConsoleUtil.lerInt("ID da Escola: ", 1, Integer.MAX_VALUE);
-        escolaDAO.deletar(id);
-        System.out.println("Escola deletada!");
+        Escola escola = escolaDAO.buscarPorId(id);
+        if (escola != null) {
+            escolaDAO.deletar(id);
+            System.out.println("Escola deletada!");
+        } else {
+            System.out.println("Escola nao encontrada!");
+        }
     }
 }

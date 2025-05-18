@@ -49,7 +49,6 @@ public class TurmaController {
         }
     }
 
-    // Implementar outros métodos...
     public void atualizarTurmaAdminGeral() {
         int turmaId = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
         Turma turma = turmaDAO.buscarPorId(turmaId);
@@ -71,8 +70,8 @@ public class TurmaController {
             return;
         }
 
-        // Atualiza o nome SEM VALIDAÇÃO
-        turma.setNome(novoNome); // Aceita qualquer entrada (vazia, espaços, etc.)
+        // Atualiza o nome SEM VALIDACAO
+        turma.setNome(novoNome);
         turma.setCurso(novoCurso);
         turma.setEscola(novaEscola);
         turmaDAO.atualizar(turma);
@@ -96,9 +95,9 @@ public class TurmaController {
         int idTurma = ConsoleUtil.lerInt("ID da Turma para atualizar: ", 1, Integer.MAX_VALUE);
         Turma turma = turmaDAO.buscarPorId(idTurma);
 
-        // Verifica se a turma existe e pertence à escola
+        // Verifica se a turma existe e pertence a escola
         if (turma == null || turma.getEscola().getId() != escolaId) {
-            System.out.println("Turma não encontrada ou não pertence à sua escola!");
+            System.out.println("Turma nao encontrada ou nao pertence a sua escola!");
             return;
         }
 
@@ -134,12 +133,12 @@ public class TurmaController {
         }
 
         System.out.println("\n=== ALUNOS DA TURMA " + idTurma + " ===");
-        AlunoTurma[] vinculos = alunoTurmaDAO.listarPorTurma(idTurma); // Método correto do DAO
-        boolean found = false;
+        AlunoTurma[] vinculos = alunoTurmaDAO.listarPorTurma(idTurma);
+        boolean flag = false;
 
-        if (vinculos != null) { // Verifica se o array nao � nulo
+        if (vinculos != null) {
             for (AlunoTurma rel : vinculos) {
-                if (rel != null) { // Remove a condi�ao redundante (ja filtrado pelo DAO)
+                if (rel != null) { 
                     Aluno a = rel.getAluno();
                     System.out.println(
                             "ID: " + a.getId()
@@ -147,12 +146,12 @@ public class TurmaController {
                             + " | CPF: " + a.getCpf()
                             + " | Email: " + a.getEmail()
                     );
-                    found = true;
+                    flag = true;
                 }
             }
         }
 
-        if (!found) {
+        if (!flag) {
             System.out.println("Nenhum aluno vinculado a esta turma.");
         }
     }

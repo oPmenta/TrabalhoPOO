@@ -6,21 +6,10 @@ import model.Turma;
 
 public class AlunoTurmaDAO {
 
-    private AlunoTurma[] vinculos = new AlunoTurma[10];
+    private AlunoTurma[] vinculos = new AlunoTurma[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
-    private AlunoDAO alunoDAO;
-    private TurmaDAO turmaDAO;
-
-    public AlunoTurmaDAO(AlunoDAO alunoDAO, TurmaDAO turmaDAO) {
-        this.alunoDAO = alunoDAO;
-        this.turmaDAO = turmaDAO;
-    }
 
     public void criar(AlunoTurma vinculo) {
-        if (ultimoId >= capacidade) {
-            aumentarCapacidade();
-        }
         vinculo.setId(++ultimoId);
         vinculos[ultimoId - 1] = vinculo;
     }
@@ -59,15 +48,6 @@ public class AlunoTurmaDAO {
             vinculos[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        AlunoTurma[] novoArray = new AlunoTurma[capacidade];
-        for (int i = 0; i < vinculos.length; i++) {
-            novoArray[i] = vinculos[i];
-        }
-        vinculos = novoArray;
     }
 
     public AlunoTurma buscarPorAlunoETurma(int alunoId, int turmaId) {

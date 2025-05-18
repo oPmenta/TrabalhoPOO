@@ -5,14 +5,10 @@ import util.DataUtil;
 
 public class VidaAcademicaDAO {
 
-    private VidaAcademica[] registros = new VidaAcademica[10];
+    private VidaAcademica[] registros = new VidaAcademica[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
 
     public void criar(VidaAcademica vidaAcademica) {
-        if (ultimoId >= capacidade) {
-            aumentarCapacidade();
-        }
         vidaAcademica.setId(++ultimoId);
         vidaAcademica.setDataCriacao(DataUtil.getDataAtual());
         registros[ultimoId - 1] = vidaAcademica;
@@ -61,14 +57,5 @@ public class VidaAcademicaDAO {
             registros[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        VidaAcademica[] novoArray = new VidaAcademica[capacidade];
-        for (int i = 0; i < registros.length; i++) {
-            novoArray[i] = registros[i];
-        }
-        registros = novoArray;
     }
 }

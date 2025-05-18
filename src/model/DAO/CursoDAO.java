@@ -5,14 +5,10 @@ import util.DataUtil;
 
 public class CursoDAO {
 
-    private Curso[] cursos = new Curso[10];
+    private Curso[] cursos = new Curso[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
 
     public void criar(Curso curso) {
-        if (ultimoId >= capacidade) {
-            aumentarCapacidade();
-        }
         curso.setId(++ultimoId);
         curso.setDataCriacao(DataUtil.getDataAtual());
         cursos[ultimoId - 1] = curso;
@@ -61,14 +57,5 @@ public class CursoDAO {
             cursos[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        Curso[] novoArray = new Curso[capacidade];
-        for (int i = 0; i < cursos.length; i++) {
-            novoArray[i] = cursos[i];
-        }
-        cursos = novoArray;
     }
 }

@@ -14,7 +14,7 @@ public class AlunoTurmaView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU VINCULAR ALUNOS ===");
+            System.out.println("\n\n=== MENU VINCULAR ALUNOS ===");
             System.out.println("1 - Vincular Aluno");
             System.out.println("2 - Mover entre Turmas");
             System.out.println("3 - Voltar");

@@ -4,12 +4,10 @@ import model.Pessoa;
 import util.DataUtil;
 
 public class PessoaDAO {
-    private Pessoa[] pessoas = new Pessoa[10];
+    private Pessoa[] pessoas = new Pessoa[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
 
     public void criar(Pessoa pessoa) {
-        if (ultimoId >= capacidade) aumentarCapacidade();
         pessoa.setId(++ultimoId);
         pessoa.setDataCriacao(DataUtil.getDataAtual());
         pessoas[ultimoId - 1] = pessoa;
@@ -63,14 +61,5 @@ public class PessoaDAO {
             pessoas[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        Pessoa[] novoArray = new Pessoa[capacidade];
-        for (int i = 0; i < pessoas.length; i++) {
-            novoArray[i] = pessoas[i];
-        }
-        pessoas = novoArray;
     }
 }

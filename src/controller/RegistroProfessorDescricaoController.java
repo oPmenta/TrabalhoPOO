@@ -34,11 +34,11 @@ public class RegistroProfessorDescricaoController {
         RegistroProfessor registro = registroProfessorDAO.buscarPorId(registroId);
 
         if (registro == null) {
-            System.out.println("Erro: Registro de professor não encontrado!");
+            System.out.println("Erro: Registro de professor nao encontrado!");
             return;
         }
 
-        // Verifica se a turma do registro pertence à escola
+        // Verifica se a turma do registro pertence a escola
         Turma turma = registro.getTurma();
         if (turma.getEscola().getId() != escolaId) {
             System.out.println("Erro: Registro de turma de outra escola!");
@@ -49,20 +49,20 @@ public class RegistroProfessorDescricaoController {
         Aluno aluno = alunoDAO.buscarPorId(alunoId);
 
         if (aluno == null) {
-            System.out.println("Erro: Aluno não encontrado!");
+            System.out.println("Erro: Aluno nao encontrado!");
             return;
         }
 
-        // Verifica se o aluno está vinculado a uma turma da escola
+        // Verifica se o aluno esta vinculado a uma turma da escola
         boolean alunoVinculado = alunoTurmaDAO.existeVinculoAlunoEscola(alunoId, escolaId);
         if (!alunoVinculado) {
-            System.out.println("Erro: Aluno não pertence a nenhuma turma da escola!");
+            System.out.println("Erro: Aluno nao pertence a nenhuma turma da escola!");
             return;
         }
 
-        String observacao = ConsoleUtil.lerString("Observação: ");
+        String observacao = ConsoleUtil.lerString("Observacao: ");
         if (observacao.isBlank()) {
-            System.out.println("Erro: Observação não pode ser vazia!");
+            System.out.println("Erro: Observacao nao pode ser vazia!");
             return;
         }
 
@@ -70,38 +70,38 @@ public class RegistroProfessorDescricaoController {
                 0, registro, aluno, observacao
         );
         registroDescricaoDAO.criar(descricao);
-        System.out.println("Descrição criada com sucesso!");
+        System.out.println("Descricao criada com sucesso!");
     }
 
     public void atualizarRegistroDesc(int escolaId) {
-        int descricaoId = ConsoleUtil.lerInt("ID da Descrição: ", 1, Integer.MAX_VALUE);
+        int descricaoId = ConsoleUtil.lerInt("ID da Descricao: ", 1, Integer.MAX_VALUE);
         RegistroProfessorDescricao descricao = registroDescricaoDAO.buscarPorId(descricaoId);
 
         if (descricao == null) {
-            System.out.println("Erro: Descrição não encontrada!");
+            System.out.println("Erro: Descricao nao encontrada!");
             return;
         }
 
-        // Valida se o registro associado pertence à escola correta
+        // Valida se o registro pertence a escola correta
         RegistroProfessor registro = registroProfessorDAO.buscarPorId(descricao.getRegistro().getId());
         if (registro == null || registro.getTurma().getEscola().getId() != escolaId) {
-            System.out.println("Erro: Descrição não pertence a esta escola!");
+            System.out.println("Erro: Descricao nao pertence a esta escola!");
             return;
         }
 
-        String novaObservacao = ConsoleUtil.lerString("Nova Observação: ");
+        String novaObservacao = ConsoleUtil.lerString("Nova Observacao: ");
         if (novaObservacao.isBlank()) {
-            System.out.println("Erro: Observação não pode ser vazia!");
+            System.out.println("Erro: Observacao nao pode ser vazia!");
             return;
         }
 
         descricao.setObservacao(novaObservacao);
         registroDescricaoDAO.atualizar(descricao);
-        System.out.println("Observação atualizada com sucesso!");
+        System.out.println("Observacao atualizada com sucesso!");
     }
 
     public void listarRegistroDesc(int escolaId) {
-        System.out.println("\n=== DESCRIÇÕES DE REGISTROS DE PROFESSORES ===");
+        System.out.println("\n=== DESCRICOES DE REGISTROS DE PROFESSORES ===");
         RegistroProfessorDescricao[] registros = registroDescricaoDAO.listarTodos();
         for (RegistroProfessorDescricao d : registros) {
             if (d == null) {
@@ -123,23 +123,22 @@ public class RegistroProfessorDescricaoController {
     }
 
     public void deletarRegistroDesc(int escolaId) {
-        int descricaoId = ConsoleUtil.lerInt("Digite o ID da descrição que deseja deletar: ", 1, Integer.MAX_VALUE);
+        int descricaoId = ConsoleUtil.lerInt("Digite o ID da descricao que deseja deletar: ", 1, Integer.MAX_VALUE);
         RegistroProfessorDescricao descricao = registroDescricaoDAO.buscarPorId(descricaoId);
 
         if (descricao == null) {
-            System.out.println("Erro: Descrição não encontrada!");
+            System.out.println("Erro: Descricao nao encontrada!");
             return;
         }
 
-        // Verificar se o registro associado pertence à escola correta
         RegistroProfessor registro = registroProfessorDAO.buscarPorId(descricao.getRegistro().getId());
         if (registro == null || registro.getTurma().getEscola().getId() != escolaId) {
-            System.out.println("Erro: Não autorizado a deletar descrição de outra escola!");
+            System.out.println("Erro: Nao autorizado a deletar descricao de outra escola!");
             return;
         }
 
         registroDescricaoDAO.deletar(descricaoId);
-        System.out.println("Descrição deletada com sucesso!");
+        System.out.println("Descricao deletada com sucesso!");
     }
 
 }

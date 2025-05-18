@@ -17,7 +17,7 @@ public class CursoController {
         String sigla = ConsoleUtil.lerString("Sigla: ");
         String tipo = ConsoleUtil.lerString("Tipo (SUPERIOR/INTEGRADO/CONCOMITANTE): ").toUpperCase();
         if (!tipo.matches("SUPERIOR|INTEGRADO|CONCOMITANTE")) {
-            System.out.println("Erro: Tipo inválido!");
+            System.out.println("Erro: Tipo INVALIDO!");
             return;
         }
         Curso curso = new Curso(0, nome, sigla, tipo);
@@ -25,26 +25,21 @@ public class CursoController {
         System.out.println("Curso criado com ID: " + curso.getId());
     }
 
-    // Implementar atualizar, listar, deletar...
     public void atualizarCurso() {
         int id = ConsoleUtil.lerInt("ID do Curso: ", 1, Integer.MAX_VALUE);
         Curso curso = cursoDAO.buscarPorId(id);
         if (curso != null) {
-            // lê nome e sigla normalmente
             curso.setNome(ConsoleUtil.lerString("Novo Nome: "));
             curso.setSigla(ConsoleUtil.lerString("Nova Sigla: "));
 
-            // lê e valida tipo
-            String novoTipo = ConsoleUtil
-                    .lerString("Novo Tipo (SUPERIOR/INTEGRADO/CONCOMITANTE): ")
-                    .toUpperCase();
+            // valida tipo
+            String novoTipo = ConsoleUtil.lerString("Novo Tipo (SUPERIOR/INTEGRADO/CONCOMITANTE): ").toUpperCase();
             if (!novoTipo.matches("SUPERIOR|INTEGRADO|CONCOMITANTE")) {
-                System.out.println("Erro: Tipo inválido!");
+                System.out.println("Erro: Tipo INVALIDO!");
                 return;
             }
             curso.setTipo(novoTipo);
 
-            // persiste alteração
             cursoDAO.atualizar(curso);
             System.out.println("Curso atualizado!");
         } else {

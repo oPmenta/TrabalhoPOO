@@ -4,14 +4,10 @@ import model.Usuario;
 
 public class UsuarioDAO {
 
-    private Usuario[] usuarios = new Usuario[10];
+    private Usuario[] usuarios = new Usuario[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
 
     public void criar(Usuario usuario) {
-        if (ultimoId >= capacidade) {
-            aumentarCapacidade();
-        }
         usuario.setId(++ultimoId);
         usuarios[ultimoId - 1] = usuario;
     }
@@ -59,14 +55,5 @@ public class UsuarioDAO {
             usuarios[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        Usuario[] novoArray = new Usuario[capacidade];
-        for (int i = 0; i < usuarios.length; i++) {
-            novoArray[i] = usuarios[i];
-        }
-        usuarios = novoArray;
     }
 }

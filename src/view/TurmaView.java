@@ -14,7 +14,7 @@ public class TurmaView {
     public void exibirMenuAdminGeral() {
         int opcao;
         do {
-            System.out.println("\n=== MENU TURMA (ADMIN GERAL) ===");
+            System.out.println("\n\n=== MENU TURMA (ADMIN GERAL) ===");
             System.out.println("1 - Criar");
             System.out.println("2 - Atualizar");
             System.out.println("3 - Listar Todas");

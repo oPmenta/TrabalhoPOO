@@ -5,21 +5,10 @@ import util.DataUtil;
 
 public class TurmaDAO {
 
-    private Turma[] turmas = new Turma[10];
+    private Turma[] turmas = new Turma[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
-    private EscolaDAO escolaDAO;
-    private CursoDAO cursoDAO;
-
-    public TurmaDAO(EscolaDAO escolaDAO, CursoDAO cursoDAO) {
-        this.escolaDAO = escolaDAO;
-        this.cursoDAO = cursoDAO;
-    }
 
     public void criar(Turma turma) {
-        if (ultimoId >= capacidade) {
-            aumentarCapacidade();
-        }
         turma.setId(++ultimoId);
         turma.setDataCriacao(DataUtil.getDataAtual());
         turmas[ultimoId - 1] = turma;
@@ -68,15 +57,6 @@ public class TurmaDAO {
             turmas[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        Turma[] novoArray = new Turma[capacidade];
-        for (int i = 0; i < turmas.length; i++) {
-            novoArray[i] = turmas[i];
-        }
-        turmas = novoArray;
     }
 
     public Turma buscarPorIdEEscola(int turmaId, int escolaId) {

@@ -14,7 +14,7 @@ public class RegistroProfessorView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU REGISTROS DA TURMA ===");
+            System.out.println("\n\n=== MENU REGISTROS DA TURMA ===");
             System.out.println("1 - Registrar dados gerais da turma");
             System.out.println("2 - Atualizar registros de turma");
             System.out.println("3 - Listar registros de turma");

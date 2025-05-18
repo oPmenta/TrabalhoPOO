@@ -14,7 +14,7 @@ public class EscolaView {
     public void exibirMenu() {
         int opcao;
         do {
-            System.out.println("\n=== MENU ESCOLA ===");
+            System.out.println("\n\n=== MENU ESCOLA ===");
             System.out.println("1 - Criar");
             System.out.println("2 - Atualizar");
             System.out.println("3 - Listar");

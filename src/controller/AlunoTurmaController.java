@@ -47,9 +47,7 @@ public class AlunoTurmaController {
         System.out.println("Aluno vinculado a turma com sucesso!");
     }
 
-    // Implementar outros m√©todos...
     public void moverAlunoTurma(int escolaId) {
-        // Obter IDs via View
         int turmaOrigemId = ConsoleUtil.lerInt("ID da Turma de Origem: ", 1, Integer.MAX_VALUE);
         int turmaDestinoId = ConsoleUtil.lerInt("ID da Turma de Destino: ", 1, Integer.MAX_VALUE);
 
@@ -62,7 +60,7 @@ public class AlunoTurmaController {
             return;
         }
 
-        // Atualizar v√≠nculos
+        // Atualizar vinculos
         alunoTurmaDAO.atualizarTurmaAlunos(turmaOrigemId, turmaDestino);
         System.out.println("Alunos movidos com sucesso!");
     }
@@ -72,7 +70,7 @@ public class AlunoTurmaController {
         Turma turma = turmaDAO.buscarPorIdEEscola(turmaId, escolaId);
 
         if (turma == null) {
-            System.out.println("Erro: Turma n„o encontrada ou n„o pertence ‡ escola!");
+            System.out.println("Erro: Turma nao encontrada ou nao pertence a escola!");
             return;
         }
 

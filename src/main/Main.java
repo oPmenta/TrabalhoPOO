@@ -12,14 +12,15 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         // Inicialização dos DAOs
         PessoaDAO pessoaDAO = new PessoaDAO();
         EscolaDAO escolaDAO = new EscolaDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         CursoDAO cursoDAO = new CursoDAO();
-        TurmaDAO turmaDAO = new TurmaDAO(escolaDAO, cursoDAO);
+        TurmaDAO turmaDAO = new TurmaDAO();
         AlunoDAO alunoDAO = new AlunoDAO();
-        AlunoTurmaDAO alunoTurmaDAO = new AlunoTurmaDAO(alunoDAO, turmaDAO);
+        AlunoTurmaDAO alunoTurmaDAO = new AlunoTurmaDAO();
         RegistroProfessorDAO registroProfessorDAO = new RegistroProfessorDAO();
         RegistroProfessorDescricaoDAO registroProfessorDescricaoDAO = new RegistroProfessorDescricaoDAO();
         VidaAcademicaDAO vidaAcademicaDAO = new VidaAcademicaDAO();
@@ -36,8 +37,8 @@ public class Main {
         RegistroProfessorDescricaoController registroProfessorDescricaoController = new RegistroProfessorDescricaoController(registroProfessorDescricaoDAO, registroProfessorDAO, alunoDAO, alunoTurmaDAO);
         VidaAcademicaController vidaAcademicaController = new VidaAcademicaController(vidaAcademicaDAO, alunoDAO, alunoTurmaDAO, turmaDAO, registroProfessorDAO, registroProfessorDescricaoDAO);
 
-        // Cria o admin pré-cadastrado se necessário
-        criarAdminSeNecessario(pessoaController, escolaController, usuarioController);
+        // Pré-cadastrado se necessário
+        PreCadastro(pessoaController, escolaController, usuarioController);
 
         // Loop principal
         while (true) {
@@ -61,17 +62,29 @@ public class Main {
         }
     }
 
-    private static void criarAdminSeNecessario(PessoaController pessoaController, EscolaController escolaController, UsuarioController usuarioController) {
+    private static void PreCadastro(PessoaController pessoaController, EscolaController escolaController, UsuarioController usuarioController) {
         // Verifica se já existem os admins e o professor
         Pessoa adminGeral = pessoaController.buscarPorLogin("admin");
-        Pessoa adminEscola = pessoaController.buscarPorLogin("adminE");
-        Pessoa professor = pessoaController.buscarPorLogin("professor");
+        //Pessoa adminEscola = pessoaController.buscarPorLogin("adminE");
+        //Pessoa professor = pessoaController.buscarPorLogin("professor");
+        //Pessoa funcionario = pessoaController.buscarPorLogin("funcionario");
 
-        if (adminGeral == null && adminEscola == null && professor == null) {
+        // Cria Escola padrão
+        Escola escolaPadrao = new Escola(1, "IFTM", "Uberaba", "(34)3326-1100");
+        escolaController.criarEscola(escolaPadrao);
+
+        if (adminGeral == null) {
             // Cria Pessoa admin_geral
             Pessoa admin1 = new Pessoa(1, "Admin", "admin", "admin123");
             pessoaController.criarPessoa(admin1);
 
+            // Cria Usuário admin_geral
+            Usuario adminUsuario = new Usuario(1, admin1, escolaPadrao, "ADMIN_GERAL");
+            usuarioController.criarUsuario(adminUsuario);
+        }
+
+        /*
+        if (adminEscola == null && professor == null && funcionario == null) {
             // Cria Pessoa admin_escola
             Pessoa admin2 = new Pessoa(2, "AdminE", "adminE", "admin123");
             pessoaController.criarPessoa(admin2);
@@ -84,14 +97,6 @@ public class Main {
             Pessoa funcionarioE = new Pessoa(4, "Funcionario", "funcionario", "123");
             pessoaController.criarPessoa(funcionarioE);
 
-            // Cria Escola padrão
-            Escola escolaPadrao = new Escola(1, "IFTM", "Uberaba", "(34)3326-1100");
-            escolaController.criarEscola(escolaPadrao);
-
-            // Cria Usuário admin_geral
-            Usuario adminUsuario = new Usuario(1, admin1, escolaPadrao, "ADMIN_GERAL");
-            usuarioController.criarUsuario(adminUsuario);
-
             // Cria Usuário admin_escola
             Usuario adminEUsuario = new Usuario(2, admin2, escolaPadrao, "ADMIN_ESCOLA");
             usuarioController.criarUsuario(adminEUsuario);
@@ -103,12 +108,12 @@ public class Main {
             // Cria Usuário funcionario
             Usuario funcionarioUsuario = new Usuario(4, funcionarioE, escolaPadrao, "FUNCIONARIO");
             usuarioController.criarUsuario(funcionarioUsuario);
-
         }
+         */
     }
 
     private static void exibirTelaBoasVindas() {
-        System.out.println("\n=== BEM-VINDO AO SISTEMA ACADEMICO ===");
+        System.out.println("\n\n=== BEM-VINDO AO SISTEMA ACADEMICO ===");
     }
 
     private static void fazerLogin(UsuarioController usuarioController) {

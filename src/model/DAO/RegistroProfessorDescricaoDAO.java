@@ -5,14 +5,10 @@ import util.DataUtil;
 
 public class RegistroProfessorDescricaoDAO {
 
-    private RegistroProfessorDescricao[] registros = new RegistroProfessorDescricao[10];
+    private RegistroProfessorDescricao[] registros = new RegistroProfessorDescricao[50];
     private int ultimoId = 0;
-    private int capacidade = 10;
 
     public void criar(RegistroProfessorDescricao registro) {
-        if (ultimoId >= capacidade) {
-            aumentarCapacidade();
-        }
         registro.setId(++ultimoId);
         registro.setDataCriacao(DataUtil.getDataAtual());
         registros[ultimoId - 1] = registro;
@@ -61,14 +57,5 @@ public class RegistroProfessorDescricaoDAO {
             registros[ultimoId - 1] = null;
             ultimoId--;
         }
-    }
-
-    private void aumentarCapacidade() {
-        capacidade *= 2;
-        RegistroProfessorDescricao[] novoArray = new RegistroProfessorDescricao[capacidade];
-        for (int i = 0; i < registros.length; i++) {
-            novoArray[i] = registros[i];
-        }
-        registros = novoArray;
     }
 }

@@ -14,7 +14,7 @@ public class PessoaView {
     public void exibirMenu() {
         int opcao;
         do {
-            System.out.println("\n=== MENU PESSOA ===");
+            System.out.println("\n\n=== MENU PESSOA ===");
             System.out.println("1 - Criar");
             System.out.println("2 - Atualizar");
             System.out.println("3 - Listar");

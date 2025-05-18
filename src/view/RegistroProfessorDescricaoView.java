@@ -15,11 +15,11 @@ public class RegistroProfessorDescricaoView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU OBSERVAÇÕES DO ALUNO ===");
-            System.out.println("1 - Registrar observações por aluno");
-            System.out.println("2 - Atualizar observações individuais");
-            System.out.println("3 - Listar observações individuais");
-            System.out.println("4 - Deletar observação");
+            System.out.println("\n\n=== MENU OBSERVAÇÕES DO ALUNO ===");
+            System.out.println("1 - Registrar observacoes por aluno");
+            System.out.println("2 - Atualizar observacoes individuais");
+            System.out.println("3 - Listar observacoes individuais");
+            System.out.println("4 - Deletar observacao");
             System.out.println("5 - Voltar");
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
 

@@ -20,13 +20,13 @@ public class ProfessorView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU PROFESSOR ===");
+            System.out.println("\n\n=== MENU PROFESSOR ===");
             System.out.println("1 - Menu registros da turma");
-            System.out.println("2 - Menu observações do aluno");
-            System.out.println("3 - Menu eventos da vida acadêmica");
+            System.out.println("2 - Menu observacoes do aluno");
+            System.out.println("3 - Menu eventos da vida academica");
             System.out.println("4 - Listar Alunos de uma Turma");
-            System.out.println("5 - Histórico de um aluno (Timeline)");
-            System.out.println("6 - Relatório de Conselho de Classe");
+            System.out.println("5 - Historico de um aluno (Timeline)");
+            System.out.println("6 - Relatorio de Conselho de Classe");
             System.out.println("7 - Logout");
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 7);
 

@@ -16,10 +16,10 @@ public class FuncionarioView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU PROFESSOR ===");
-            System.out.println("1 - Menu eventos da vida acadêmica");
+            System.out.println("\n\n=== MENU PROFESSOR ===");
+            System.out.println("1 - Menu eventos da vida academica");
             System.out.println("2 - Listar Alunos de uma Turma");
-            System.out.println("3 - Histórico de um aluno (Timeline)");
+            System.out.println("3 - Historico de um aluno (Timeline)");
             System.out.println("4 - Logout");
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 4);
 

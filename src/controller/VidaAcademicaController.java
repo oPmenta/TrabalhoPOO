@@ -36,24 +36,24 @@ public class VidaAcademicaController {
         Aluno aluno = alunoDAO.buscarPorId(alunoId);
 
         if (aluno == null) {
-            System.out.println("Erro: Aluno não encontrado!");
+            System.out.println("Erro: Aluno nao encontrado!");
             return;
         }
 
         if (!alunoTurmaDAO.existeVinculoAlunoEscola(alunoId, escolaId)) {
-            System.out.println("Erro: Aluno não está vinculado a nenhuma turma desta escola!");
+            System.out.println("Erro: Aluno nao está vinculado a nenhuma turma desta escola!");
             return;
         }
 
         String tipo = ConsoleUtil.lerString("Tipo (OBSERVACAO, INCIDENTE, ADVERTENCIA, MERITO): ").toUpperCase();
         if (!tipo.matches("OBSERVACAO|INCIDENTE|ADVERTENCIA|MERITO")) {
-            System.out.println("Erro: Tipo inválido!");
+            System.out.println("Erro: Tipo invalido!");
             return;
         }
 
-        String descricao = ConsoleUtil.lerString("Descrição: ");
+        String descricao = ConsoleUtil.lerString("Descricao: ");
         if (descricao.trim().isEmpty()) {
-            System.out.println("Erro: Descrição não pode ser vazia!");
+            System.out.println("Erro: Descricao nao pode ser vazia!");
             return;
         }
 
@@ -62,30 +62,29 @@ public class VidaAcademicaController {
         System.out.println("Registro criado com ID: " + registro.getId());
     }
 
-    // Implementar métodos restantes (atualizar, listar, deletar)...
     public void atualizarVidaAcademica(int escolaId) {
         int registroId = ConsoleUtil.lerInt("ID do registro a atualizar: ", 1, Integer.MAX_VALUE);
         VidaAcademica registro = vidaAcademicaDAO.buscarPorId(registroId);
 
         if (registro == null) {
-            System.out.println("Erro: Registro não encontrado!");
+            System.out.println("Erro: Registro nao encontrado!");
             return;
         }
 
         int alunoId = registro.getAluno().getId();
         if (!alunoTurmaDAO.existeVinculoAlunoEscola(alunoId, escolaId)) {
-            System.out.println("Erro: Registro não pertence à escola do professor!");
+            System.out.println("Erro: Registro nao pertence a escola do professor!");
             return;
         }
 
         String novoTipo = ConsoleUtil.lerString("Novo Tipo (OBSERVACAO, INCIDENTE, ADVERTENCIA, MERITO - deixe em branco para manter): ").toUpperCase();
-        String novaDescricao = ConsoleUtil.lerString("Nova Descrição (deixe em branco para manter): ");
+        String novaDescricao = ConsoleUtil.lerString("Nova Descricao (deixe em branco para manter): ");
 
         if (!novoTipo.isBlank()) {
             if (novoTipo.matches("OBSERVACAO|INCIDENTE|ADVERTENCIA|MERITO")) {
                 registro.setTipo(novoTipo);
             } else {
-                System.out.println("Erro: Tipo inválido! Alteração ignorada.");
+                System.out.println("Erro: Tipo invalido! Alteracao ignorada.");
             }
         }
 
@@ -98,7 +97,7 @@ public class VidaAcademicaController {
     }
 
     public void listarRegistrosAcademicos(int escolaId) {
-        System.out.println("\n=== REGISTROS ACADÊMICOS ===");
+        System.out.println("\n=== REGISTROS ACADEMICOS ===");
         VidaAcademica[] registros = vidaAcademicaDAO.listarTodos();
 
         if (registros.length == 0) {
@@ -115,7 +114,7 @@ public class VidaAcademicaController {
             int alunoId = registro.getAluno().getId();
             if (alunoTurmaDAO.existeVinculoAlunoEscola(alunoId, escolaId)) {
                 System.out.printf(
-                        "ID: %d | Tipo: %s | Descrição: %s | Data: %s | Aluno ID: %d\n",
+                        "ID: %d | Tipo: %s | Descricao: %s | Data: %s | Aluno ID: %d\n",
                         registro.getId(),
                         registro.getTipo(),
                         registro.getDescricao(),
@@ -136,13 +135,13 @@ public class VidaAcademicaController {
         VidaAcademica registro = vidaAcademicaDAO.buscarPorId(registroId);
 
         if (registro == null) {
-            System.out.println("Erro: Registro não encontrado!");
+            System.out.println("Erro: Registro nao encontrado!");
             return;
         }
 
         int alunoId = registro.getAluno().getId();
         if (!alunoTurmaDAO.existeVinculoAlunoEscola(alunoId, escolaId)) {
-            System.out.println("Erro: Registro não pertence à escola do professor!");
+            System.out.println("Erro: Registro nao pertence a escola do professor!");
             return;
         }
 
@@ -151,26 +150,26 @@ public class VidaAcademicaController {
     }
 
     public void exibirTimelineAluno(int escolaId) {
-        int alunoId = ConsoleUtil.lerInt("ID do Aluno para histórico: ", 1, Integer.MAX_VALUE);
+        int alunoId = ConsoleUtil.lerInt("ID do Aluno para historico: ", 1, Integer.MAX_VALUE);
         Aluno aluno = alunoDAO.buscarPorId(alunoId);
 
         if (aluno == null) {
-            System.out.println("Erro: Aluno não encontrado!");
+            System.out.println("Erro: Aluno nao encontrado!");
             return;
         }
 
         if (!alunoTurmaDAO.existeVinculoAlunoEscola(alunoId, escolaId)) {
-            System.out.println("Erro: Você não tem permissão para ver o histórico deste aluno!");
+            System.out.println("Erro: Voce nao tem permissão para ver o historico deste aluno!");
             return;
         }
 
         VidaAcademica[] registros = vidaAcademicaDAO.listarTodos();
-        System.out.println("\n=== Histórico de " + aluno.getNome() + " ===");
+        System.out.println("\n=== Historico de " + aluno.getNome() + " ===");
 
         boolean encontrouRegistros = false;
         for (VidaAcademica registro : registros) {
             if (registro != null && registro.getAluno().getId() == alunoId) {
-                String dataFormatada = registro.getDataCriacao().split(" ")[0]; // Formatação simplificada
+                String dataFormatada = registro.getDataCriacao().split(" ")[0]; // Formatacao da data
                 System.out.printf(
                         "%s | %s\n%s\n\n",
                         dataFormatada,
@@ -182,25 +181,24 @@ public class VidaAcademicaController {
         }
 
         if (!encontrouRegistros) {
-            System.out.println("Nenhum registro acadêmico encontrado para este aluno.");
+            System.out.println("Nenhum registro academico encontrado para este aluno.");
         }
     }
 
     public void gerarRelatorioConselhoTurma(int escolaId) {
-        System.out.print("ID da Turma para relatório: ");
+        System.out.print("ID da Turma para relatorio: ");
         int idTurma = ConsoleUtil.lerInt("", 1, Integer.MAX_VALUE);
 
-        // Busca a turma verificando se pertence à escola do professor
+        // Busca a turma verificando se pertence a escola do professor
         Turma turma = turmaDAO.buscarPorIdEEscola(idTurma, escolaId);
 
         if (turma == null) {
-            System.out.println("Erro: Turma não encontrada ou não pertence à sua escola!");
+            System.out.println("Erro: Turma nao encontrada ou nao pertence a sua escola!");
             return;
         }
 
-        System.out.println("\n=== Relatório de Todos os Registros: Turma " + turma.getNome() + " ===");
+        System.out.println("\n=== Relatorio de Todos os Registros: Turma " + turma.getNome() + " ===");
 
-        // 1) Coletar IDs únicos de alunos com registros na turma (usando array e loop manual)
         RegistroProfessorDescricao[] todosRegistrosDesc = registroProfessorDescricaoDAO.listarTodos();
         int[] alunosVistos = new int[todosRegistrosDesc.length];
         int qtAlunos = 0;
@@ -234,7 +232,7 @@ public class VidaAcademicaController {
             return;
         }
 
-        // 2) Exibir registros por aluno
+        // Exibir registros por aluno
         for (int i = 0; i < qtAlunos; i++) {
             int idAluno = alunosVistos[i];
             Aluno aluno = alunoDAO.buscarPorId(idAluno);

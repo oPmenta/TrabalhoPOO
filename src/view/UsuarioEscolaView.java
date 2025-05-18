@@ -24,7 +24,7 @@ public class UsuarioEscolaView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU USUARIOS DA ESCOLA ===");
+            System.out.println("\n\n=== MENU USUARIOS DA ESCOLA ===");
             System.out.println("1 - Vincular Usuario");
             System.out.println("2 - Listar Usuarios");
             System.out.println("3 - Remover Vinculo");

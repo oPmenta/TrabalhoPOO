@@ -28,18 +28,24 @@ public class UsuarioController {
         Pessoa pessoa = pessoaDAO.buscarPorId(pessoaId);
         Escola escola = escolaDAO.buscarPorId(escolaId);
 
-        if (pessoa != null && escola != null) {
-            Usuario usuario = new Usuario(0, pessoa, escola, tipo);
-            usuarioDAO.criar(usuario);
-            System.out.println("Usuario criado com ID: " + usuario.getId());
+        if (!tipo.matches("^(ADMIN_GERAL|ADMIN_ESCOLA|PROFESSOR|FUNCIONARIO)$")) {
+            System.out.println("Erro: Tipo invalido!");
+            return;
         } else {
-            System.out.println("Pessoa ou Escola nao encontrada!");
+            if (pessoa != null && escola != null) {
+                Usuario usuario = new Usuario(0, pessoa, escola, tipo);
+                usuarioDAO.criar(usuario);
+                System.out.println("Usuario criado com ID: " + usuario.getId());
+            } else {
+                System.out.println("Pessoa ou Escola nao encontrada!");
+            }
         }
     }
 
     public void criarUsuario(Usuario u) {
         usuarioDAO.criar(u);
-       // System.out.println("Usuario padrao criado com ID: " + u.getId());
+        // debug do pr�-cadastro
+        // System.out.println("Usuario padrao criado com ID: " + u.getId());
     }
 
     public Usuario autenticar(String login, String senha) {
@@ -50,25 +56,30 @@ public class UsuarioController {
         return null;
     }
 
-    // Outros métodos (atualizar, listar, deletar) seguem o mesmo padrão...
     public void atualizarUsuario() {
         int id = ConsoleUtil.lerInt("ID do Usuario: ", 1, Integer.MAX_VALUE);
         Usuario usuario = usuarioDAO.buscarPorId(id);
         if (usuario != null) {
             int novoPessoaId = ConsoleUtil.lerInt("Novo ID da Pessoa: ", 1, Integer.MAX_VALUE);
             int novoEscolaId = ConsoleUtil.lerInt("Novo ID da Escola: ", 1, Integer.MAX_VALUE);
+            String novoTipo = ConsoleUtil.lerString("Novo Tipo(ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR/FUNCIONARIO): ").toUpperCase();
 
             Pessoa novaPessoa = pessoaDAO.buscarPorId(novoPessoaId);
             Escola novaEscola = escolaDAO.buscarPorId(novoEscolaId);
 
-            if (novaPessoa != null && novaEscola != null) {
-                usuario.setPessoa(novaPessoa);
-                usuario.setEscola(novaEscola);
-                usuario.setTipo(ConsoleUtil.lerString("Novo Tipo(ADMIN_GERAL/ADMIN_ESCOLA/PROFESSOR/FUNCIONARIO): ").toUpperCase());
-                usuarioDAO.atualizar(usuario);
-                System.out.println("Usuario atualizado!");
+            if (!novoTipo.matches("ADMIN_GERAL|ADMIN_ESCOLA|PROFESSOR|FUNCIONARIO")) {
+                System.out.println("Erro: Tipo invalido!");
+                return;
             } else {
-                System.out.println("Pessoa ou Escola nao encontrada!");
+                if (novaPessoa != null && novaEscola != null) {
+                    usuario.setPessoa(novaPessoa);
+                    usuario.setEscola(novaEscola);
+                    usuario.setTipo(novoTipo);
+                    usuarioDAO.atualizar(usuario);
+                    System.out.println("Usuario atualizado!");
+                } else {
+                    System.out.println("Pessoa ou Escola nao encontrada!");
+                }
             }
         } else {
             System.out.println("Usuario nao encontrado!");
@@ -89,7 +100,6 @@ public class UsuarioController {
     }
 
     public void vincularUsuarioEscola(int escolaId) {
-        // Solicitar ID da Pessoa
         int pessoaId = ConsoleUtil.lerInt("ID da Pessoa: ", 1, Integer.MAX_VALUE);
 
         // Buscar Pessoa e Escola
@@ -107,7 +117,7 @@ public class UsuarioController {
             tipo = ConsoleUtil.lerString("Tipo (ADMIN_ESCOLA/PROFESSOR/FUNCIONARIO): ").toUpperCase();
         } while (!tipo.matches("ADMIN_ESCOLA|PROFESSOR|FUNCIONARIO"));
 
-        // Verificar se já existe vínculo
+        // Verificar se ja existe vinculo
         Usuario usuarioExistente = null;
         for (Usuario u : usuarioDAO.listarTodos()) {
             if (u.getPessoa().getId() == pessoaId) {
@@ -123,7 +133,7 @@ public class UsuarioController {
             usuarioDAO.atualizar(usuarioExistente);
             System.out.println("Vi�nculo atualizado!");
         } else {
-            // Criar novo vínculo
+            // Criar novo vinculo
             int novoId = gerarNovoId();
             Usuario novoUsuario = new Usuario(novoId, pessoa, escola, tipo);
             usuarioDAO.criar(novoUsuario);
@@ -139,6 +149,7 @@ public class UsuarioController {
                 System.out.println(
                         "ID: " + usuario.getId()
                         + " | Nome: " + usuario.getPessoa().getNome()
+                        + " | Escola: " + usuario.getEscola().getNome()
                         + " | Tipo: " + usuario.getTipo()
                 );
             }

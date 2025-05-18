@@ -21,9 +21,8 @@ public class AlunoController {
         System.out.println("Aluno criado com ID: " + aluno.getId());
     }
 
-    // Implementar atualizar, listar, deletar...
     public void atualizarAluno() {
-        int id = ConsoleUtil.lerInt("ID do Aluno: ", 1, Integer.MAX_VALUE);
+        int id = ConsoleUtil.lerInt("ID do Aluno: ", 1, Integer.MAX_VALUE); // Integer.MAX_VALUE = valor máximo de um int
         Aluno aluno = alunoDAO.buscarPorId(id);
         if (aluno != null) {
             aluno.setNome(ConsoleUtil.lerString("Novo Nome: "));
@@ -45,7 +44,12 @@ public class AlunoController {
 
     public void deletarAluno() {
         int id = ConsoleUtil.lerInt("ID do Aluno: ", 1, Integer.MAX_VALUE);
-        alunoDAO.deletar(id);
-        System.out.println("Aluno deletado!");
+        Aluno aluno = alunoDAO.buscarPorId(id);
+        if (aluno != null) {
+            alunoDAO.deletar(id);
+            System.out.println("Aluno deletado!");
+        } else {
+            System.out.println("Aluno nao encontrado!");
+        }
     }
 }

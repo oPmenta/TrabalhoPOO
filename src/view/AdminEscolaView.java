@@ -25,7 +25,7 @@ public class AdminEscolaView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU ADMIN ESCOLA ===");
+            System.out.println("\n\n=== MENU ADMIN ESCOLA ===");
             System.out.println("1 - Menu de Aluno");
             System.out.println("2 - Menu de Usuarios da Escola");
             System.out.println("3 - Menu de Curso");
@@ -45,7 +45,7 @@ public class AdminEscolaView {
                     new CursoView(cursoController).exibirMenu();
                     break;
                 case 4:
-                    new TurmaView(turmaController).exibirMenuAdminEscola(escolaId); // menu da turma
+                    new TurmaView(turmaController).exibirMenuAdminEscola(escolaId);
                     break;
                 case 5:
                     new AlunoTurmaView(alunoTurmaController).exibirMenu(escolaId);

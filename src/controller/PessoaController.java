@@ -23,6 +23,7 @@ public class PessoaController {
 
     public void criarPessoa(Pessoa p) {
         pessoaDAO.criar(p);
+        // debug pré-cadastro
         //System.out.println("Pessoa padrao criada com ID: " + p.getId());
     }
 
@@ -49,8 +50,14 @@ public class PessoaController {
 
     public void deletarPessoa() {
         int id = ConsoleUtil.lerInt("ID da Pessoa: ", 1, Integer.MAX_VALUE);
-        pessoaDAO.deletar(id);
-        System.out.println("Pessoa deletada!");
+        Pessoa pessoa = pessoaDAO.buscarPorId(id);
+        if (pessoa != null) {
+            pessoaDAO.deletar(id);
+            System.out.println("Pessoa deletada!");
+        } else {
+            System.out.println("Pessoa nao encontrada!");
+        }
+
     }
 
     public Pessoa buscarPorLogin(String login) {

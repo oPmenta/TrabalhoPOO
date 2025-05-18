@@ -14,11 +14,11 @@ public class VidaAcademicaView {
     public void exibirMenu(int escolaId) {
         int opcao;
         do {
-            System.out.println("\n=== MENU EVENTOS DA VIDA ACADÊMICA ===");
-            System.out.println("1 - Registrar eventos da vida acadêmica");
-            System.out.println("2 - Atualizar eventos da vida acadêmica");
-            System.out.println("3 - Listar eventos da vida acadêmica");
-            System.out.println("4 - Deletar eventos da vida acadêmica");
+            System.out.println("\n\n=== MENU EVENTOS DA VIDA ACADEMICA ===");
+            System.out.println("1 - Registrar eventos da vida academica");
+            System.out.println("2 - Atualizar eventos da vida academica");
+            System.out.println("3 - Listar eventos da vida academica");
+            System.out.println("4 - Deletar eventos da vida academica");
             System.out.println("5 - Voltar");
             opcao = ConsoleUtil.lerInt("Escolha: ", 1, 5);
 
