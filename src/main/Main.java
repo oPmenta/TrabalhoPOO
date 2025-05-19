@@ -171,14 +171,14 @@ public class Main {
                     vidaAcademicaController,
                     alunoTurmaController
             );
-            professorView.exibirMenu(usuarioLogado.getEscola().getId());
+            professorView.exibirMenu(usuarioLogado.getEscola().getId(), usuarioLogado);
             usuarioLogado = null; // Logout após sair do menu
         } else if (usuarioLogado.getTipo().equals("FUNCIONARIO")) {
             FuncionarioView funcionarioView = new FuncionarioView(
                     vidaAcademicaController,
                     alunoTurmaController
             );
-            funcionarioView.exibirMenu(usuarioLogado.getEscola().getId());
+            funcionarioView.exibirMenu(usuarioLogado.getEscola().getId(), usuarioLogado);
             usuarioLogado = null; // Logout após sair do menu
         }
 

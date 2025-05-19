@@ -20,18 +20,14 @@ public class RegistroProfessorController {
         this.turmaDAO = turmaDAO;
     }
 
-    int cont = 0;
+    int flag = 0;
 
-    public void criarRegistro(int escolaId) {
-        int professorId = ConsoleUtil.lerInt("ID do Professor: ", 1, Integer.MAX_VALUE);
-
-        Usuario professor = usuarioDAO.buscarPorId(professorId);
-
+    public void criarRegistro(int escolaId, Usuario professor) {
         if (professor == null || !"PROFESSOR".equals(professor.getTipo())) {
             System.out.println("Erro: Professor invalido ou nao encontrado!");
             return;
         }
-
+        
         String disciplina = ConsoleUtil.lerString("Disciplina: ");
         if (disciplina.isBlank()) {
             System.out.println("Erro: Disciplina nao pode ser vazia!");
@@ -104,12 +100,12 @@ public class RegistroProfessorController {
 
         registroProfessorDAO.atualizar(registro);
         System.out.println("Registro atualizado com sucesso!");
-        cont = 1;
+        flag = 1;
     }
 
     public void listarRegistrosPorEscola(int escolaId) {
         RegistroProfessor[] registros = registroProfessorDAO.listarTodos();
-        System.out.println("=== REGISTROS DE PROFESSORES ===");
+        System.out.println("\n\n=== REGISTROS DE PROFESSORES ===");
 
         for (RegistroProfessor reg : registros) {
             if (reg != null) {
@@ -124,7 +120,7 @@ public class RegistroProfessorController {
                             + " | Turma: " + turma.getNome()
                             + " | Revisão: " + reg.getRevisaoGeral()
                             + " | Criado: " + reg.getDataCriacao());
-                    if (cont == 0) {
+                    if (flag == 0) {
                         System.out.print(" | Atualizado: " + reg.getDataCriacao());
                     } else {
                         System.out.print(" | Atualizado: " + reg.getDataModificacao());

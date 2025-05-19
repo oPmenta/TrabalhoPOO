@@ -2,6 +2,7 @@ package view;
 
 import util.*;
 import controller.*;
+import model.Usuario;
 
 public class ProfessorView {
 
@@ -17,7 +18,7 @@ public class ProfessorView {
         this.alunoTurmaController = alunoTurmaController;
     }
 
-    public void exibirMenu(int escolaId) {
+    public void exibirMenu(int escolaId, Usuario professor) {
         int opcao;
         do {
             System.out.println("\n\n=== MENU PROFESSOR ===");
@@ -32,7 +33,7 @@ public class ProfessorView {
 
             switch (opcao) {
                 case 1:
-                    new RegistroProfessorView(registroProfessorController).exibirMenu(escolaId);
+                    new RegistroProfessorView(registroProfessorController).exibirMenu(escolaId, professor);
                     break;
                 case 2:
                     new RegistroProfessorDescricaoView(registroProfessorDescricaoController).exibirMenu(escolaId);

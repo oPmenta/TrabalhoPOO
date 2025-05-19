@@ -131,7 +131,7 @@ public class UsuarioController {
             usuarioExistente.setEscola(escola);
             usuarioExistente.setTipo(tipo);
             usuarioDAO.atualizar(usuarioExistente);
-            System.out.println("Vi­nculo atualizado!");
+            System.out.println("Vinculo atualizado!");
         } else {
             // Criar novo vinculo
             int novoId = gerarNovoId();
@@ -157,7 +157,7 @@ public class UsuarioController {
     }
 
     public void deletarUsuarioEscola(int escolaId) {
-        int id = ConsoleUtil.lerInt("ID do Usuario para remover vi­nculo: ", 1, Integer.MAX_VALUE);
+        int id = ConsoleUtil.lerInt("ID do Usuario para remover vinculo: ", 1, Integer.MAX_VALUE);
         Usuario usuario = usuarioDAO.buscarPorId(id);
 
         if (usuario != null && usuario.getEscola().getId() == escolaId) {

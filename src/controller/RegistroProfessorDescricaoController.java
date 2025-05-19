@@ -21,13 +21,14 @@ public class RegistroProfessorDescricaoController {
             RegistroProfessorDescricaoDAO registroDescricaoDAO,
             RegistroProfessorDAO registroProfessorDAO,
             AlunoDAO alunoDAO,
-            AlunoTurmaDAO alunoTurmaDAO
-    ) {
+            AlunoTurmaDAO alunoTurmaDAO) {
         this.registroDescricaoDAO = registroDescricaoDAO;
         this.registroProfessorDAO = registroProfessorDAO;
         this.alunoDAO = alunoDAO;
         this.alunoTurmaDAO = alunoTurmaDAO;
     }
+
+    int flag = 0;
 
     public void criarRegistroDesc(int escolaId) {
         int registroId = ConsoleUtil.lerInt("ID do Registro Professor: ", 1, Integer.MAX_VALUE);
@@ -98,10 +99,11 @@ public class RegistroProfessorDescricaoController {
         descricao.setObservacao(novaObservacao);
         registroDescricaoDAO.atualizar(descricao);
         System.out.println("Observacao atualizada com sucesso!");
+        flag = 1;
     }
 
     public void listarRegistroDesc(int escolaId) {
-        System.out.println("\n=== DESCRICOES DE REGISTROS DE PROFESSORES ===");
+        System.out.println("\n\n=== DESCRICOES DE REGISTROS DE PROFESSORES ===");
         RegistroProfessorDescricao[] registros = registroDescricaoDAO.listarTodos();
         for (RegistroProfessorDescricao d : registros) {
             if (d == null) {
@@ -111,14 +113,17 @@ public class RegistroProfessorDescricaoController {
             if (reg == null || reg.getTurma().getEscola().getId() != escolaId) {
                 continue;
             }
-            System.out.println(
+            System.out.print(
                     "ID: " + d.getId()
                     + " | Registro ID: " + d.getRegistro().getId()
                     + " | Aluno: " + d.getAluno().getNome()
                     + " | Observação: " + d.getObservacao()
-                    + " | Criado: " + d.getDataCriacao()
-                    + " | Atualizado: " + d.getDataModificacao()
-            );
+                    + " | Criado: " + d.getDataCriacao());
+            if (flag == 0) {
+                System.out.print(" | Atualizado: " + d.getDataCriacao());
+            } else {
+                System.out.print(" | Atualizado: " + d.getDataModificacao());
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package view;
 
 import controller.RegistroProfessorController;
+import model.Usuario;
 import util.ConsoleUtil;
 
 public class RegistroProfessorView {
@@ -11,7 +12,7 @@ public class RegistroProfessorView {
         this.registroProfessorController = registroProfessorController;
     }
 
-    public void exibirMenu(int escolaId) {
+    public void exibirMenu(int escolaId, Usuario professor) {
         int opcao;
         do {
             System.out.println("\n\n=== MENU REGISTROS DA TURMA ===");
@@ -24,7 +25,7 @@ public class RegistroProfessorView {
 
             switch (opcao) {
                 case 1:
-                    registroProfessorController.criarRegistro(escolaId);
+                    registroProfessorController.criarRegistro(escolaId, professor);
                     break;
                 case 2:
                     registroProfessorController.atualizarRegistro(escolaId);
