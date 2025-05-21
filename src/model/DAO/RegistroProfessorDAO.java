@@ -9,9 +9,20 @@ public class RegistroProfessorDAO {
     private int ultimoId = 0;
 
     public void criar(RegistroProfessor registro) {
-        registro.setId(++ultimoId);
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (registros[i].getId() > maiorId) {
+                maiorId = registros[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        registro.setId(maiorId + 1);
+
         registro.setDataCriacao(DataUtil.getDataAtual());
-        registros[ultimoId - 1] = registro;
+        registros[ultimoId] = registro;
+        ultimoId++;
     }
 
     public RegistroProfessor buscarPorId(int id) {

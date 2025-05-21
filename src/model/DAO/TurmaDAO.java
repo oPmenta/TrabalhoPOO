@@ -9,9 +9,20 @@ public class TurmaDAO {
     private int ultimoId = 0;
 
     public void criar(Turma turma) {
-        turma.setId(++ultimoId);
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (turmas[i].getId() > maiorId) {
+                maiorId = turmas[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        turma.setId(maiorId + 1);
+
         turma.setDataCriacao(DataUtil.getDataAtual());
-        turmas[ultimoId - 1] = turma;
+        turmas[ultimoId] = turma;
+        ultimoId++;
     }
 
     public Turma buscarPorId(int id) {
@@ -60,7 +71,7 @@ public class TurmaDAO {
     }
 
     public Turma buscarPorIdEEscola(int turmaId, int escolaId) {
-        for (Turma turma : turmas) { 
+        for (Turma turma : turmas) {
             if (turma != null && turma.getId() == turmaId
                     && turma.getEscola().getId() == escolaId) {
                 return turma;

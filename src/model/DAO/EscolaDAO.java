@@ -9,9 +9,20 @@ public class EscolaDAO {
     private int ultimoId = 0;
 
     public void criar(Escola escola) {
-        escola.setId(++ultimoId);
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (escolas[i].getId() > maiorId) {
+                maiorId = escolas[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        escola.setId(maiorId + 1);
+
         escola.setDataCriacao(DataUtil.getDataAtual());
-        escolas[ultimoId - 1] = escola;
+        escolas[ultimoId] = escola;
+        ultimoId++;
     }
 
     public Escola buscarPorId(int id) {

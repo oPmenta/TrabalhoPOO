@@ -4,25 +4,41 @@ import model.Pessoa;
 import util.DataUtil;
 
 public class PessoaDAO {
+
     private Pessoa[] pessoas = new Pessoa[50];
     private int ultimoId = 0;
 
     public void criar(Pessoa pessoa) {
-        pessoa.setId(++ultimoId);
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (pessoas[i].getId() > maiorId) {
+                maiorId = pessoas[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        pessoa.setId(maiorId + 1);
+
         pessoa.setDataCriacao(DataUtil.getDataAtual());
-        pessoas[ultimoId - 1] = pessoa;
+        pessoas[ultimoId] = pessoa;
+        ultimoId++;
     }
 
     public Pessoa buscarPorId(int id) {
         for (int i = 0; i < ultimoId; i++) {
-            if (pessoas[i].getId() == id) return pessoas[i];
+            if (pessoas[i].getId() == id) {
+                return pessoas[i];
+            }
         }
         return null;
     }
 
     public Pessoa buscarPorLogin(String login) {
         for (int i = 0; i < ultimoId; i++) {
-            if (pessoas[i].getLogin().equals(login)) return pessoas[i];
+            if (pessoas[i].getLogin().equals(login)) {
+                return pessoas[i];
+            }
         }
         return null;
     }
@@ -53,7 +69,7 @@ public class PessoaDAO {
                 break;
             }
         }
-        
+
         if (posicao != -1) {
             for (int i = posicao; i < ultimoId - 1; i++) {
                 pessoas[i] = pessoas[i + 1];

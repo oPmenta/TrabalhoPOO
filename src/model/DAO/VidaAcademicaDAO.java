@@ -9,9 +9,20 @@ public class VidaAcademicaDAO {
     private int ultimoId = 0;
 
     public void criar(VidaAcademica vidaAcademica) {
-        vidaAcademica.setId(++ultimoId);
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (registros[i].getId() > maiorId) {
+                maiorId = registros[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        vidaAcademica.setId(maiorId + 1);
+
         vidaAcademica.setDataCriacao(DataUtil.getDataAtual());
-        registros[ultimoId - 1] = vidaAcademica;
+        registros[ultimoId] = vidaAcademica;
+        ultimoId++;
     }
 
     public VidaAcademica buscarPorId(int id) {

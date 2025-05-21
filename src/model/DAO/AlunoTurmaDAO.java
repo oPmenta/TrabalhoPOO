@@ -3,6 +3,7 @@ package model.DAO;
 import model.AlunoTurma;
 import model.DAO.*;
 import model.Turma;
+import util.DataUtil;
 
 public class AlunoTurmaDAO {
 
@@ -10,8 +11,20 @@ public class AlunoTurmaDAO {
     private int ultimoId = 0;
 
     public void criar(AlunoTurma vinculo) {
-        vinculo.setId(++ultimoId);
-        vinculos[ultimoId - 1] = vinculo;
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (vinculos[i].getId() > maiorId) {
+                maiorId = vinculos[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        vinculo.setId(maiorId + 1);
+
+        vinculo.setDataCriacao(DataUtil.getDataAtual());
+        vinculos[ultimoId] = vinculo;
+        ultimoId++;
     }
 
     public AlunoTurma[] listarPorTurma(int turmaId) {

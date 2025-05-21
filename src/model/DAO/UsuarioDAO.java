@@ -1,6 +1,7 @@
 package model.DAO;
 
 import model.Usuario;
+import util.DataUtil;
 
 public class UsuarioDAO {
 
@@ -8,8 +9,20 @@ public class UsuarioDAO {
     private int ultimoId = 0;
 
     public void criar(Usuario usuario) {
-        usuario.setId(++ultimoId);
-        usuarios[ultimoId - 1] = usuario;
+        // Encontra o maior ID existente
+        int maiorId = 0;
+        for (int i = 0; i < ultimoId; i++) {
+            if (usuarios[i].getId() > maiorId) {
+                maiorId = usuarios[i].getId();
+            }
+        }
+
+        // Define o novo ID como maiorId + 1
+        usuario.setId(maiorId + 1);
+
+        usuario.setDataCriacao(DataUtil.getDataAtual());
+        usuarios[ultimoId] = usuario;
+        ultimoId++;
     }
 
     public Usuario buscarPorId(int id) {
