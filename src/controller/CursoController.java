@@ -25,6 +25,10 @@ public class CursoController {
         System.out.println("Curso criado com ID: " + curso.getId());
     }
 
+    public void criarCurso1(Curso curso) {
+        cursoDAO.criar(curso);
+    }
+
     public void atualizarCurso() {
         int id = ConsoleUtil.lerInt("ID do Curso: ", 1, Integer.MAX_VALUE);
         Curso curso = cursoDAO.buscarPorId(id);

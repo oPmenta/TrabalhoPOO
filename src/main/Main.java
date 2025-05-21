@@ -4,6 +4,7 @@ import model.DAO.*;
 import model.*;
 import controller.*;
 import view.*;
+import util.*;
 import java.util.Scanner;
 
 public class Main {
@@ -38,7 +39,7 @@ public class Main {
         VidaAcademicaController vidaAcademicaController = new VidaAcademicaController(vidaAcademicaDAO, alunoDAO, alunoTurmaDAO, turmaDAO, registroProfessorDAO, registroProfessorDescricaoDAO);
 
         // Pré-cadastrado se necessário
-        PreCadastro(pessoaController, escolaController, usuarioController);
+        InicializaDados.PreCadastro(pessoaController, escolaController, usuarioController, cursoController, turmaController, alunoController);
 
         // Loop principal
         while (true) {
@@ -60,56 +61,6 @@ public class Main {
                 );
             }
         }
-    }
-
-    private static void PreCadastro(PessoaController pessoaController, EscolaController escolaController, UsuarioController usuarioController) {
-        // Verifica se já existem os admins e o professor
-        Pessoa adminGeral = pessoaController.buscarPorLogin("admin");
-        //Pessoa adminEscola = pessoaController.buscarPorLogin("adminE");
-        //Pessoa professor = pessoaController.buscarPorLogin("professor");
-        //Pessoa funcionario = pessoaController.buscarPorLogin("funcionario");
-
-        // Cria Escola padrão
-        Escola escolaPadrao = new Escola(1, "IFTM", "Uberaba", "(34)3326-1100");
-        escolaController.criarEscola(escolaPadrao);
-
-        if (adminGeral == null) {
-            // Cria Pessoa admin_geral
-            Pessoa admin1 = new Pessoa(1, "Admin", "admin", "admin123");
-            pessoaController.criarPessoa(admin1);
-
-            // Cria Usuário admin_geral
-            Usuario adminUsuario = new Usuario(1, admin1, escolaPadrao, "ADMIN_GERAL");
-            usuarioController.criarUsuario(adminUsuario);
-        }
-
-        /*
-        if (adminEscola == null && professor == null && funcionario == null) {
-            // Cria Pessoa admin_escola
-            Pessoa admin2 = new Pessoa(2, "AdminE", "adminE", "admin123");
-            pessoaController.criarPessoa(admin2);
-
-            // Cria Pessoa professor
-            Pessoa professorE = new Pessoa(3, "Professor", "professor", "123");
-            pessoaController.criarPessoa(professorE);
-
-            // Cria Pessoa funcionario
-            Pessoa funcionarioE = new Pessoa(4, "Funcionario", "funcionario", "123");
-            pessoaController.criarPessoa(funcionarioE);
-
-            // Cria Usuário admin_escola
-            Usuario adminEUsuario = new Usuario(2, admin2, escolaPadrao, "ADMIN_ESCOLA");
-            usuarioController.criarUsuario(adminEUsuario);
-
-            // Cria Usuário professor
-            Usuario professorUsuario = new Usuario(3, professorE, escolaPadrao, "PROFESSOR");
-            usuarioController.criarUsuario(professorUsuario);
-
-            // Cria Usuário funcionario
-            Usuario funcionarioUsuario = new Usuario(4, funcionarioE, escolaPadrao, "FUNCIONARIO");
-            usuarioController.criarUsuario(funcionarioUsuario);
-        }
-         */
     }
 
     private static void exibirTelaBoasVindas() {

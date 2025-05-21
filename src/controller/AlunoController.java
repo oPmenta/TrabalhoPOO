@@ -20,6 +20,11 @@ public class AlunoController {
         alunoDAO.criar(aluno);
         System.out.println("Aluno criado com ID: " + aluno.getId());
     }
+    
+    public void criarAluno1(Aluno aluno)
+    {
+        alunoDAO.criar(aluno);
+    }
 
     public void atualizarAluno() {
         int id = ConsoleUtil.lerInt("ID do Aluno: ", 1, Integer.MAX_VALUE); // Integer.MAX_VALUE = valor máximo de um int

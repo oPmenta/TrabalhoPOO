@@ -49,6 +49,10 @@ public class TurmaController {
         }
     }
 
+    public void criarTurma1(Turma turma) {
+        turmaDAO.criar(turma);
+    }
+
     public void atualizarTurmaAdminGeral() {
         int turmaId = ConsoleUtil.lerInt("ID da Turma: ", 1, Integer.MAX_VALUE);
         Turma turma = turmaDAO.buscarPorId(turmaId);
@@ -138,7 +142,7 @@ public class TurmaController {
 
         if (vinculos != null) {
             for (AlunoTurma rel : vinculos) {
-                if (rel != null) { 
+                if (rel != null) {
                     Aluno a = rel.getAluno();
                     System.out.println(
                             "ID: " + a.getId()

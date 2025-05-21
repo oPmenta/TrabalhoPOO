@@ -48,7 +48,7 @@ public class AdminEscolaView {
                     new TurmaView(turmaController).exibirMenuAdminEscola(escolaId);
                     break;
                 case 5:
-                    new AlunoTurmaView(alunoTurmaController).exibirMenu(escolaId);
+                    new AlunoTurmaView(alunoTurmaController, turmaController).exibirMenu(escolaId);
                     break;
                 case 6:
                     System.out.println("Saindo...");
